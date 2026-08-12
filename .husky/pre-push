@@ -1,0 +1,1 @@
+npm test -- --passWithNoTests && npm run test:e2e
