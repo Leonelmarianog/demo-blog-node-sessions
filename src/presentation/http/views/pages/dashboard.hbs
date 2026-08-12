@@ -1,0 +1,85 @@
+{{> flash}}
+
+<div class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div>
+      <h1 class="text-2xl font-bold tracking-tight text-gray-900">Your posts</h1>
+      <p class="mt-1 text-sm text-gray-500">6 posts &middot; 4 published &middot; 2 drafts</p>
+    </div>
+    <a href="/posts/new" class="inline-flex items-center rounded-md bg-brand-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-700">New post</a>
+  </div>
+
+  <ul class="divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white">
+    <li class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 p-4">
+      <div class="min-w-0 flex-1">
+        <a href="/posts/building-a-server-rendered-blog" class="block truncate text-sm font-semibold text-gray-900 hover:text-brand-700">Building a server-rendered blog with NestJS and Handlebars</a>
+        <p class="mt-0.5 text-xs text-gray-500">Aug 10, 2026 &middot; /posts/building-a-server-rendered-blog</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">Published</span>
+        <a href="/posts/building-a-server-rendered-blog/edit" class="text-sm text-brand-700 hover:text-brand-900">Edit</a>
+        <button type="button" class="text-sm text-red-600 hover:text-red-800">Delete</button>
+      </div>
+    </li>
+
+    <li class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 p-4">
+      <div class="min-w-0 flex-1">
+        <a href="/posts/session-cookies-vs-jwt" class="block truncate text-sm font-semibold text-gray-900 hover:text-brand-700">Session cookies vs JWT: picking an auth strategy</a>
+        <p class="mt-0.5 text-xs text-gray-500">Aug 6, 2026 &middot; /posts/session-cookies-vs-jwt</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">Published</span>
+        <a href="/posts/session-cookies-vs-jwt/edit" class="text-sm text-brand-700 hover:text-brand-900">Edit</a>
+        <button type="button" class="text-sm text-red-600 hover:text-red-800">Delete</button>
+      </div>
+    </li>
+
+    <li class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 p-4">
+      <div class="min-w-0 flex-1">
+        <a href="/posts/tailwind-v4-css-first-config" class="block truncate text-sm font-semibold text-gray-900 hover:text-brand-700">Tailwind v4's CSS-first config in a NestJS app</a>
+        <p class="mt-0.5 text-xs text-gray-500">Jul 28, 2026 &middot; /posts/tailwind-v4-css-first-config</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">Published</span>
+        <a href="/posts/tailwind-v4-css-first-config/edit" class="text-sm text-brand-700 hover:text-brand-900">Edit</a>
+        <button type="button" class="text-sm text-red-600 hover:text-red-800">Delete</button>
+      </div>
+    </li>
+
+    <li class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 p-4">
+      <div class="min-w-0 flex-1">
+        <a href="/posts/clean-architecture-on-the-server" class="block truncate text-sm font-semibold text-gray-900 hover:text-brand-700">Clean architecture on the server, without the ceremony</a>
+        <p class="mt-0.5 text-xs text-gray-500">Jul 15, 2026 &middot; /posts/clean-architecture-on-the-server</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">Published</span>
+        <a href="/posts/clean-architecture-on-the-server/edit" class="text-sm text-brand-700 hover:text-brand-900">Edit</a>
+        <button type="button" class="text-sm text-red-600 hover:text-red-800">Delete</button>
+      </div>
+    </li>
+
+    <li class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 p-4">
+      <div class="min-w-0 flex-1">
+        <a href="/posts/redis-backed-sessions" class="block truncate text-sm font-semibold text-gray-900 hover:text-brand-700">Redis-backed sessions for a multi-instance deploy</a>
+        <p class="mt-0.5 text-xs text-gray-500">Draft &middot; /posts/redis-backed-sessions</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-600">Draft</span>
+        <a href="/posts/redis-backed-sessions/edit" class="text-sm text-brand-700 hover:text-brand-900">Edit</a>
+        <button type="button" class="text-sm text-red-600 hover:text-red-800">Delete</button>
+      </div>
+    </li>
+
+    <li class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 p-4">
+      <div class="min-w-0 flex-1">
+        <a href="/posts/email-templates-with-handlebars" class="block truncate text-sm font-semibold text-gray-900 hover:text-brand-700">Sharing Handlebars partials between web and email</a>
+        <p class="mt-0.5 text-xs text-gray-500">Draft &middot; /posts/email-templates-with-handlebars</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-600">Draft</span>
+        <a href="/posts/email-templates-with-handlebars/edit" class="text-sm text-brand-700 hover:text-brand-900">Edit</a>
+        <button type="button" class="text-sm text-red-600 hover:text-red-800">Delete</button>
+      </div>
+    </li>
+  </ul>
+</div>
