@@ -1,0 +1,99 @@
+{{> flash}}
+
+<article class="space-y-6">
+  <header class="space-y-3">
+    <h1 class="text-3xl font-bold tracking-tight text-gray-900">Building a server-rendered blog with NestJS and Handlebars</h1>
+    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-gray-500">
+      <span class="font-medium text-gray-700">Leonel Mariano</span>
+      <span aria-hidden="true">&middot;</span>
+      <time datetime="2026-08-10">Aug 10, 2026</time>
+      <span aria-hidden="true">&middot;</span>
+      <span>6 min read</span>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <span class="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700">nestjs</span>
+      <span class="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700">handlebars</span>
+      <span class="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700">architecture</span>
+    </div>
+  </header>
+
+  <div class="prose prose-gray max-w-none">
+    <p>Most of the web is read, not written. For a content-heavy site like a blog, sending fully-formed HTML from the server is hard to beat: it's fast on first paint, works without JavaScript, and indexes cleanly. This post walks through why a server-rendered stack still earns its place, and how NestJS plus Handlebars keep it simple without giving up on a clean architecture.</p>
+
+    <h2>Why server-rendering still earns its place</h2>
+    <p>Single-page apps shine for application-like interfaces, but a blog is mostly pages. Shipping rendered HTML means the browser can paint content immediately, readers on slow connections or with JavaScript disabled still get the article, and there's no hydration step to get wrong.</p>
+
+    <ul>
+      <li><strong>Fast first paint</strong> &mdash; the server sends ready-to-read HTML.</li>
+      <li><strong>Resilient</strong> &mdash; no JavaScript, no problem; the content is already there.</li>
+      <li><strong>Simple</strong> &mdash; one template language for pages and transactional emails alike.</li>
+    </ul>
+
+    <h2>Handlebars over the alternatives</h2>
+    <p>Handlebars auto-escapes by default, which is safer than EJS's <code>&lt;%=</code> / <code>&lt;%-</code> footguns, and it has first-class layout support that keeps a shared shell out of every page. The same partials and style will back transactional emails later, so there's one template language to learn for the whole project.</p>
+
+    <pre><code>app.engine('hbs', create({
+  extname: 'hbs',
+  defaultLayout: 'main',
+  layoutsDir: join(viewsPath, 'layouts'),
+  partialsDir: join(viewsPath, 'partials'),
+}));</code></pre>
+
+    <blockquote><p>The best UI is the one that doesn't make you choose between speed, safety, and simplicity &mdash; server-rendering with a good template engine gives you all three for a site like this.</p></blockquote>
+
+    <h2>Keeping the architecture honest</h2>
+    <p>Rendering HTML doesn't mean abandoning layering. Controllers stay thin, application actions carry the use cases, and the domain stays free of framework concerns. The UI can be built and felt out with fixture content before any backend exists, and swapping in a real action later is mechanical rather than a rewrite.</p>
+
+    <p>That's the bet this stack makes: server-rendered simplicity, a single template language, and an architecture that grows with the app instead of against it.</p>
+  </div>
+</article>
+
+<section class="mt-12 space-y-6">
+  <h2 class="text-lg font-semibold text-gray-900">Comments <span class="font-normal text-gray-400">(3)</span></h2>
+
+  <div class="space-y-4">
+    <article class="rounded-lg border border-gray-200 bg-white p-4">
+      <div class="flex items-center gap-2 text-sm">
+        <span class="font-medium text-gray-900">Jane Doe</span>
+        <span aria-hidden="true">&middot;</span>
+        <time class="text-gray-500">Aug 11, 2026</time>
+      </div>
+      <p class="mt-2 text-gray-700">Great write-up. The point about not over-abstracting the domain layer early really resonated &mdash; so many projects reach for a full DDD setup on day one and never ship.</p>
+    </article>
+
+    <article class="rounded-lg border border-gray-200 bg-white p-4">
+      <div class="flex items-center gap-2 text-sm">
+        <span class="font-medium text-gray-900">Sam Rivera</span>
+        <span aria-hidden="true">&middot;</span>
+        <time class="text-gray-500">Aug 11, 2026</time>
+      </div>
+      <p class="mt-2 text-gray-700">Curious how the email templates reuse the same Handlebars partials &mdash; do you share header/footer styling between web and email, or keep them separate?</p>
+    </article>
+
+    <article class="rounded-lg border border-gray-200 bg-white p-4">
+      <div class="flex items-center gap-2 text-sm">
+        <span class="font-medium text-gray-900">Alex Chen</span>
+        <span aria-hidden="true">&middot;</span>
+        <time class="text-gray-500">Aug 12, 2026</time>
+      </div>
+      <p class="mt-2 text-gray-700">Bookmarking this. The swap-from-fixture-to-real-action contract is the part I always get wrong &mdash; calling it out explicitly up front is a nice touch.</p>
+    </article>
+  </div>
+
+  <form class="space-y-4 rounded-lg border border-gray-200 bg-white p-4">
+    <h3 class="text-base font-semibold text-gray-900">Leave a comment</h3>
+    <div>
+      <label for="comment-name" class="block text-sm font-medium text-gray-700">Name</label>
+      <input id="comment-name" name="name" type="text" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
+    </div>
+    <div>
+      <label for="comment-email" class="block text-sm font-medium text-gray-700">Email</label>
+      <input id="comment-email" name="email" type="email" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
+    </div>
+    <div>
+      <label for="comment-body" class="block text-sm font-medium text-gray-700">Comment</label>
+      <textarea id="comment-body" name="body" rows="4" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500"></textarea>
+    </div>
+    <button type="submit" class="rounded-md bg-brand-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-700">Post comment</button>
+  </form>
+</section>

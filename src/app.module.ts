@@ -3,6 +3,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { envSchema } from './env.schema';
 import { HomeModule } from '@modules/home.module';
+import { PostsModule } from '@modules/posts.module';
 import { NotFoundExceptionFilter } from '@presentation/http/exceptions/not-found.exception.filter';
 
 @Module({
@@ -13,6 +14,7 @@ import { NotFoundExceptionFilter } from '@presentation/http/exceptions/not-found
       validationSchema: envSchema,
     }),
     HomeModule,
+    PostsModule,
   ],
   providers: [
     {
