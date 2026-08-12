@@ -5,7 +5,15 @@ import { configureViewEngine } from '../../src/presentation/http/views/view-engi
 
 export function setupApp(app: INestApplication): void {
   configureViewEngine(app as NestExpressApplication, {
-    viewsPath: join(__dirname, '..', '..', 'src', 'presentation', 'http', 'views'),
+    viewsPath: join(
+      __dirname,
+      '..',
+      '..',
+      'src',
+      'presentation',
+      'http',
+      'views',
+    ),
     publicPath: join(__dirname, '..', '..', 'public'),
   });
 }
