@@ -26,4 +26,4 @@ async function bootstrap(): Promise<void> {
 
   await app.listen(process.env.APP_PORT ?? 3000);
 }
-bootstrap();
+void bootstrap();

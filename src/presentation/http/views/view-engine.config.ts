@@ -17,6 +17,9 @@ export function configureViewEngine(
   });
 
   // NestExpressApplication doesn't expose .engine(); configure it on the raw Express instance.
+  // express-handlebars' engine returns a Promise; Express's engine() callback type expects
+  // void, but this is the intended express-handlebars wiring.
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   app.getHttpAdapter().getInstance().engine('hbs', hbs.engine);
   app.setViewEngine('hbs');
 }
