@@ -21,11 +21,13 @@ describe('Home page (e2e)', () => {
     await app.close();
   });
 
-  it('GET / renders the home page', () => {
+  it('GET / renders the home feed', () => {
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
       .expect('Content-Type', /text\/html/)
-      .expect(/Demo Blog/);
+      .expect(/Demo Blog/)
+      .expect(/Latest posts/)
+      .expect(/Building a server-rendered blog/);
   });
 });
