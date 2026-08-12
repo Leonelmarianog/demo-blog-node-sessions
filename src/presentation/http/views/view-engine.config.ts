@@ -14,6 +14,10 @@ export function configureViewEngine(
     defaultLayout: 'main',
     layoutsDir: join(paths.viewsPath, 'layouts'),
     partialsDir: join(paths.viewsPath, 'partials'),
+    helpers: {
+      // View-layer equality check for `{{#if (eq a b)}}` — Handlebars has no built-in.
+      eq: (a: unknown, b: unknown): boolean => a === b,
+    },
   });
 
   // NestExpressApplication doesn't expose .engine(); configure it on the raw Express instance.
