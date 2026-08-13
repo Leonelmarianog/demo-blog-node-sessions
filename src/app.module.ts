@@ -8,6 +8,7 @@ import { DashboardModule } from '@modules/dashboard.module';
 import { AuthModule } from '@modules/auth.module';
 import { SearchModule } from '@modules/search.module';
 import { TagModule } from '@modules/tag.module';
+import { UserModule } from '@modules/user.module';
 import { NotFoundExceptionFilter } from '@presentation/http/exceptions/not-found.exception.filter';
 
 @Module({
@@ -23,6 +24,7 @@ import { NotFoundExceptionFilter } from '@presentation/http/exceptions/not-found
     AuthModule,
     SearchModule,
     TagModule,
+    UserModule,
   ],
   providers: [
     {

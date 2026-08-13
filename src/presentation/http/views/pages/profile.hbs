@@ -1,0 +1,65 @@
+<div class="flex gap-8">
+  <div class="flex-1 space-y-8">
+    <div class="flex items-baseline justify-between">
+      <h1 class="text-2xl font-bold tracking-tight text-gray-900">Posts</h1>
+      <p class="text-sm text-gray-500">4 posts</p>
+    </div>
+
+    <div class="space-y-6">
+      {{> post-card
+        href="/posts/building-a-server-rendered-blog"
+        title="Building a server-rendered blog with NestJS and Handlebars"
+        excerpt="Why server-rendering still makes sense for a content-heavy blog, and how NestJS plus Handlebars keep the stack simple without giving up on a clean, layered architecture."
+        author="Leonel Mariano"
+        authorHref="/u/leonel-mariano"
+        dateIso="2026-08-10"
+        dateLabel="Aug 10, 2026"
+        readTime="6"
+        tags=(array "nestjs" "handlebars" "architecture")
+      }}
+
+      {{> post-card
+        href="/posts/session-cookies-vs-jwt"
+        title="Session cookies vs JWT: picking an auth strategy"
+        excerpt="A pragmatic look at where each approach fits, the threat model that actually matters for a blog, and why this stack leans toward server-side sessions stored in Redis."
+        author="Leonel Mariano"
+        authorHref="/u/leonel-mariano"
+        dateIso="2026-08-06"
+        dateLabel="Aug 6, 2026"
+        readTime="8"
+        tags=(array "auth" "security" "sessions")
+      }}
+
+      {{> post-card
+        href="/posts/tailwind-v4-css-first-config"
+        title="Tailwind v4's CSS-first config in a NestJS app"
+        excerpt="No tailwind.config.js, no content array — just an @import and an @theme block. How the new CSS-first setup fits cleanly into a server-rendered build pipeline."
+        author="Leonel Mariano"
+        authorHref="/u/leonel-mariano"
+        dateIso="2026-07-28"
+        dateLabel="Jul 28, 2026"
+        readTime="4"
+        tags=(array "tailwind" "css")
+      }}
+
+      {{> post-card
+        href="/posts/clean-architecture-on-the-server"
+        title="Clean architecture on the server, without the ceremony"
+        excerpt="Domain, application, infrastructure, presentation — kept just strict enough to keep the codebase honest as it grows, without drowning a small app in abstraction."
+        author="Leonel Mariano"
+        authorHref="/u/leonel-mariano"
+        dateIso="2026-07-15"
+        dateLabel="Jul 15, 2026"
+        readTime="7"
+        tags=(array "architecture" "domain")
+      }}
+    </div>
+  </div>
+
+  <aside class="w-56 shrink-0 border-l border-gray-200 pl-8">
+    <div class="flex h-20 w-20 items-center justify-center rounded-full bg-brand-100 text-2xl font-semibold text-brand-700">LM</div>
+    <h2 class="mt-4 text-xl font-bold text-gray-900">Leonel Mariano</h2>
+    <p class="mt-2 text-sm leading-relaxed text-gray-600">Full-stack engineer writing about server-rendered architectures, NestJS, and keeping things simple.</p>
+    <a href="/settings/profile" class="mt-4 inline-flex w-full items-center justify-center rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50">Edit profile</a>
+  </aside>
+</div>
