@@ -6,6 +6,7 @@ import { HomeModule } from '@modules/home.module';
 import { PostsModule } from '@modules/posts.module';
 import { DashboardModule } from '@modules/dashboard.module';
 import { AuthModule } from '@modules/auth.module';
+import { SearchModule } from '@modules/search.module';
 import { NotFoundExceptionFilter } from '@presentation/http/exceptions/not-found.exception.filter';
 
 @Module({
@@ -19,6 +20,7 @@ import { NotFoundExceptionFilter } from '@presentation/http/exceptions/not-found
     PostsModule,
     DashboardModule,
     AuthModule,
+    SearchModule,
   ],
   providers: [
     {

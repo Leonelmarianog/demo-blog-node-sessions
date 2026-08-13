@@ -1,6 +1,10 @@
 <header class="border-b border-gray-200 bg-white">
-  <div class="mx-auto w-full max-w-3xl px-4 py-4 flex items-center justify-between">
-    <a href="/" class="text-lg font-semibold text-gray-900">{{appTitle}}</a>
+  <div class="mx-auto w-full max-w-3xl px-4 py-4 flex items-center justify-between gap-4">
+    <a href="/" class="text-lg font-semibold text-gray-900 shrink-0">{{appTitle}}</a>
+    <form action="/search/posts" method="get" class="w-44 shrink-0">
+      <label for="nav-search" class="sr-only">Search</label>
+      <input id="nav-search" name="q" type="search" placeholder="Search posts…" class="block w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
+    </form>
     {{> nav}}
   </div>
 </header>
