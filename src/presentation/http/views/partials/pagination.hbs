@@ -1,0 +1,21 @@
+<nav class="flex items-center justify-between border-t border-gray-200 pt-6" aria-label="Pagination">
+  {{#if prevDisabled}}
+    <span class="inline-flex items-center gap-1 rounded-md border border-gray-200 px-3 py-1.5 text-sm text-gray-400" aria-disabled="true">
+      Previous
+    </span>
+  {{else}}
+    <a href="{{prevHref}}" class="inline-flex items-center gap-1 rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-gray-50">
+      Previous
+    </a>
+  {{/if}}
+  <p class="text-sm text-gray-500">Page <span class="font-medium text-gray-900">{{currentPage}}</span> of <span class="font-medium text-gray-900">{{totalPages}}</span></p>
+  {{#if nextHref}}
+    <a href="{{nextHref}}" class="inline-flex items-center gap-1 rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-gray-50">
+      Next
+    </a>
+  {{else}}
+    <span class="inline-flex items-center gap-1 rounded-md border border-gray-200 px-3 py-1.5 text-sm text-gray-400" aria-disabled="true">
+      Next
+    </span>
+  {{/if}}
+</nav>

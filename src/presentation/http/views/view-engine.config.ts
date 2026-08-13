@@ -17,6 +17,9 @@ export function configureViewEngine(
     helpers: {
       // View-layer equality check for `{{#if (eq a b)}}` — Handlebars has no built-in.
       eq: (a: unknown, b: unknown): boolean => a === b,
+      // Builds a literal array for partial params, e.g. `tags=(array "a" "b")`.
+      // Handlebars passes the options hash as the trailing argument; drop it.
+      array: (...args: unknown[]): unknown[] => args.slice(0, -1),
     },
   });
 
