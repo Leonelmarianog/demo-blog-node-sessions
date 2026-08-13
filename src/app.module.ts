@@ -5,6 +5,7 @@ import { envSchema } from './env.schema';
 import { HomeModule } from '@modules/home.module';
 import { PostsModule } from '@modules/posts.module';
 import { DashboardModule } from '@modules/dashboard.module';
+import { AuthModule } from '@modules/auth.module';
 import { NotFoundExceptionFilter } from '@presentation/http/exceptions/not-found.exception.filter';
 
 @Module({
@@ -17,6 +18,7 @@ import { NotFoundExceptionFilter } from '@presentation/http/exceptions/not-found
     HomeModule,
     PostsModule,
     DashboardModule,
+    AuthModule,
   ],
   providers: [
     {
