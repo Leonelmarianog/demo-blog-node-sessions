@@ -1,0 +1,228 @@
+{{> flash}}
+
+<div class="space-y-6">
+  <div>
+    {{> admin-nav}}
+    <h1 class="mt-4 text-2xl font-bold tracking-tight text-gray-900">Posts</h1>
+  </div>
+
+  <form action="/admin/posts" method="get" class="flex flex-wrap items-center gap-3">
+    <label for="admin-posts-search" class="sr-only">Search posts</label>
+    <input id="admin-posts-search" name="q" type="search" placeholder="Search by title or author…" class="block w-full max-w-xs rounded-md border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
+
+    <label for="admin-posts-status" class="sr-only">Filter by status</label>
+    <select id="admin-posts-status" name="status" class="rounded-md border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+      <option value="">All statuses</option>
+      <option value="published">Published</option>
+      <option value="draft">Draft</option>
+      <option value="featured">Featured</option>
+    </select>
+
+    <button type="submit" class="cursor-pointer rounded-md bg-brand-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-brand-700">Filter</button>
+  </form>
+
+  <p class="mb-3 text-right text-sm text-gray-500">Showing 50 results</p>
+
+  <div class="overflow-x-auto rounded-lg border border-gray-200 bg-white">
+    <table class="min-w-full divide-y divide-gray-200 text-sm">
+      <thead>
+        <tr class="text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+          <th class="p-4 font-semibold">
+            <button type="button" class="group inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-gray-500 hover:text-gray-900 cursor-pointer">
+              Title
+              <span class="inline-flex flex-col items-center" aria-hidden="true">
+                <svg class="h-2.5 w-2.5 text-gray-300 group-hover:text-gray-400" viewBox="0 0 10 10" fill="currentColor"><path d="M5 2L9 7L1 7Z"/></svg>
+                <svg class="h-2.5 w-2.5 text-gray-300 group-hover:text-gray-400" viewBox="0 0 10 10" fill="currentColor"><path d="M5 8L1 3L9 3Z"/></svg>
+              </span>
+            </button>
+          </th>
+          <th class="p-4 font-semibold">
+            <button type="button" class="group inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-gray-500 hover:text-gray-900 cursor-pointer">
+              Author
+              <span class="inline-flex flex-col items-center" aria-hidden="true">
+                <svg class="h-2.5 w-2.5 text-gray-300 group-hover:text-gray-400" viewBox="0 0 10 10" fill="currentColor"><path d="M5 2L9 7L1 7Z"/></svg>
+                <svg class="h-2.5 w-2.5 text-gray-300 group-hover:text-gray-400" viewBox="0 0 10 10" fill="currentColor"><path d="M5 8L1 3L9 3Z"/></svg>
+              </span>
+            </button>
+          </th>
+          <th class="p-4 font-semibold">Status</th>
+          <th class="p-4 font-semibold">
+            <button type="button" class="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-gray-900 cursor-pointer" aria-sort="descending">
+              Date
+              <span class="inline-flex flex-col items-center" aria-hidden="true">
+                <svg class="h-2.5 w-2.5 text-gray-300" viewBox="0 0 10 10" fill="currentColor"><path d="M5 2L9 7L1 7Z"/></svg>
+                <svg class="h-2.5 w-2.5 text-brand-700" viewBox="0 0 10 10" fill="currentColor"><path d="M5 8L1 3L9 3Z"/></svg>
+              </span>
+            </button>
+          </th>
+          <th class="p-4 text-right font-semibold">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <tr>
+          <td class="p-4">
+            <a href="/posts/building-a-server-rendered-blog" class="font-medium text-gray-900 hover:text-brand-700">Building a server-rendered blog with NestJS and Handlebars</a>
+          </td>
+          <td class="p-4"><a href="/u/leonel-mariano" class="text-gray-700 hover:text-brand-700">Leonel Mariano</a></td>
+          <td class="p-4">
+            <div class="flex flex-wrap items-center gap-1.5">
+              <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">Published</span>
+              <span class="inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">Featured</span>
+            </div>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Aug 10, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/posts/building-a-server-rendered-blog/edit" class="text-gray-600 hover:text-gray-900">Edit</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Unpublish</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Unfeature</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4">
+            <a href="/posts/session-cookies-vs-jwt" class="font-medium text-gray-900 hover:text-brand-700">Session cookies vs JWT: picking an auth strategy</a>
+          </td>
+          <td class="p-4"><a href="/u/leonel-mariano" class="text-gray-700 hover:text-brand-700">Leonel Mariano</a></td>
+          <td class="p-4">
+            <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">Published</span>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Aug 6, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/posts/session-cookies-vs-jwt/edit" class="text-gray-600 hover:text-gray-900">Edit</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Unpublish</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Feature</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4">
+            <a href="/posts/redis-backed-sessions/edit" class="font-medium text-gray-900 hover:text-brand-700">Redis-backed sessions for a multi-instance deploy</a>
+          </td>
+          <td class="p-4"><a href="/u/leonel-mariano" class="text-gray-700 hover:text-brand-700">Leonel Mariano</a></td>
+          <td class="p-4">
+            <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-600">Draft</span>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Jul 30, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/posts/redis-backed-sessions/edit" class="text-gray-600 hover:text-gray-900">Edit</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Publish</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4">
+            <a href="/posts/tailwind-v4-css-first-config" class="font-medium text-gray-900 hover:text-brand-700">Tailwind v4's CSS-first config in a NestJS app</a>
+          </td>
+          <td class="p-4"><a href="/u/leonel-mariano" class="text-gray-700 hover:text-brand-700">Leonel Mariano</a></td>
+          <td class="p-4">
+            <div class="flex flex-wrap items-center gap-1.5">
+              <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">Published</span>
+              <span class="inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">Featured</span>
+            </div>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Jul 28, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/posts/tailwind-v4-css-first-config/edit" class="text-gray-600 hover:text-gray-900">Edit</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Unpublish</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Unfeature</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4">
+            <a href="/posts/email-templates-with-handlebars/edit" class="font-medium text-gray-900 hover:text-brand-700">Sharing Handlebars partials between web and email</a>
+          </td>
+          <td class="p-4"><a href="/u/leonel-mariano" class="text-gray-700 hover:text-brand-700">Leonel Mariano</a></td>
+          <td class="p-4">
+            <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-600">Draft</span>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Jul 20, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/posts/email-templates-with-handlebars/edit" class="text-gray-600 hover:text-gray-900">Edit</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Publish</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4">
+            <a href="/posts/clean-architecture-on-the-server" class="font-medium text-gray-900 hover:text-brand-700">Clean architecture on the server, without the ceremony</a>
+          </td>
+          <td class="p-4"><a href="/u/leonel-mariano" class="text-gray-700 hover:text-brand-700">Leonel Mariano</a></td>
+          <td class="p-4">
+            <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">Published</span>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Jul 15, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/posts/clean-architecture-on-the-server/edit" class="text-gray-600 hover:text-gray-900">Edit</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Unpublish</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Feature</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4">
+            <a href="/posts/getting-started-with-casl" class="font-medium text-gray-900 hover:text-brand-700">Getting started with CASL abilities</a>
+          </td>
+          <td class="p-4"><a href="/u/jane-doe" class="text-gray-700 hover:text-brand-700">jane-doe</a></td>
+          <td class="p-4">
+            <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">Published</span>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Jul 12, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/posts/getting-started-with-casl/edit" class="text-gray-600 hover:text-gray-900">Edit</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Unpublish</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Feature</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4">
+            <a href="/posts/argon2id-beginners-guide" class="font-medium text-gray-900 hover:text-brand-700">A beginner's guide to Argon2id</a>
+          </td>
+          <td class="p-4"><a href="/u/sarah-chen" class="text-gray-700 hover:text-brand-700">sarah-chen</a></td>
+          <td class="p-4">
+            <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">Published</span>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Jul 5, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/posts/argon2id-beginners-guide/edit" class="text-gray-600 hover:text-gray-900">Edit</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Unpublish</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Feature</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  {{> pagination prevDisabled=true currentPage=1 totalPages=7 nextHref="/admin/posts?page=2"}}
+</div>
