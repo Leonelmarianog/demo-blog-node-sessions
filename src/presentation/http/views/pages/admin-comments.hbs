@@ -1,0 +1,133 @@
+{{> flash}}
+
+<div class="space-y-6">
+  <div>
+    {{> admin-nav}}
+    <h1 class="mt-4 text-2xl font-bold tracking-tight text-gray-900">Comments</h1>
+  </div>
+
+  <form action="/admin/comments" method="get" class="flex flex-wrap items-center gap-3">
+    <label for="admin-comments-search" class="sr-only">Search comments</label>
+    <input id="admin-comments-search" name="q" type="search" placeholder="Search by comment or author…" class="block w-full max-w-xs rounded-md border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
+
+    <label for="admin-comments-status" class="sr-only">Filter by status</label>
+    <select id="admin-comments-status" name="status" class="rounded-md border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+      <option value="awaiting" selected>Awaiting review</option>
+      <option value="approved">Approved</option>
+      <option value="rejected">Rejected</option>
+      <option value="">All statuses</option>
+    </select>
+
+    <label for="admin-comments-reason" class="sr-only">Filter by reason</label>
+    <select id="admin-comments-reason" name="reason" class="rounded-md border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+      <option value="">All reasons</option>
+      <option value="spam">Spam</option>
+      <option value="abuse">Abuse</option>
+      <option value="off-topic">Off-topic</option>
+      <option value="inappropriate">Inappropriate</option>
+    </select>
+
+    <button type="submit" class="cursor-pointer rounded-md bg-brand-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-brand-700">Filter</button>
+  </form>
+
+  <p class="mb-3 text-right text-sm text-gray-500">Showing 8 results</p>
+
+  <ul class="divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white">
+    <li class="p-4">
+      <p class="text-sm text-gray-900">Nice writeup. Unrelated, but does anyone know a good NestJS testing cheatsheet?</p>
+      <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500">
+        <span>on <a href="/posts/building-a-server-rendered-blog" class="font-medium text-brand-700 hover:text-brand-900">Building a server-rendered blog with NestJS and Handlebars</a></span>
+        <span>by <a href="/u/alex-k" class="text-brand-700 hover:text-brand-900">alex-k</a></span>
+        <span>flagged by <a href="/u/jane-doe" class="text-brand-700 hover:text-brand-900">jane-doe</a> <time>1h ago</time></span>
+        <span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-700">Off-topic</span>
+      </div>
+      <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+        <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Approve</button>
+        <span class="text-gray-300">&middot;</span>
+        <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Reject</button>
+        <span class="text-gray-300">&middot;</span>
+        <a href="/posts/building-a-server-rendered-blog" class="text-gray-600 hover:text-gray-900">View on post</a>
+        <span class="text-gray-300">&middot;</span>
+        <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+      </div>
+    </li>
+
+    <li class="p-4">
+      <p class="text-sm text-gray-900">Great content! Check out my site for exclusive deals and discounts &rarr; best-deals-now.example</p>
+      <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500">
+        <span>on <a href="/posts/clean-architecture-on-the-server" class="font-medium text-brand-700 hover:text-brand-900">Clean architecture on the server, without the ceremony</a></span>
+        <span>by <a href="/u/promo-bot" class="text-brand-700 hover:text-brand-900">promo-bot</a></span>
+        <span>flagged by Spam filter <time>3h ago</time></span>
+        <span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-700">Spam</span>
+      </div>
+      <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+        <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Approve</button>
+        <span class="text-gray-300">&middot;</span>
+        <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Reject</button>
+        <span class="text-gray-300">&middot;</span>
+        <a href="/posts/clean-architecture-on-the-server" class="text-gray-600 hover:text-gray-900">View on post</a>
+        <span class="text-gray-300">&middot;</span>
+        <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+      </div>
+    </li>
+
+    <li class="p-4">
+      <p class="text-sm text-gray-900">This is garbage, you clearly have no idea what you're talking about. Stop writing.</p>
+      <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500">
+        <span>on <a href="/posts/session-cookies-vs-jwt" class="font-medium text-brand-700 hover:text-brand-900">Session cookies vs JWT: picking an auth strategy</a></span>
+        <span>by <a href="/u/troll-99" class="text-brand-700 hover:text-brand-900">troll-99</a></span>
+        <span>flagged by <a href="/u/mike-ross" class="text-brand-700 hover:text-brand-900">mike-ross</a> <time>6h ago</time></span>
+        <span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-700">Abuse</span>
+      </div>
+      <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+        <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Approve</button>
+        <span class="text-gray-300">&middot;</span>
+        <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Reject</button>
+        <span class="text-gray-300">&middot;</span>
+        <a href="/posts/session-cookies-vs-jwt" class="text-gray-600 hover:text-gray-900">View on post</a>
+        <span class="text-gray-300">&middot;</span>
+        <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+      </div>
+    </li>
+
+    <li class="p-4">
+      <p class="text-sm text-gray-900">Make $5000/day working from home! Click here now: cash-fast.example</p>
+      <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500">
+        <span>on <a href="/posts/tailwind-v4-css-first-config" class="font-medium text-brand-700 hover:text-brand-900">Tailwind v4's CSS-first config in a NestJS app</a></span>
+        <span>by <a href="/u/free-cash" class="text-brand-700 hover:text-brand-900">free-cash</a></span>
+        <span>flagged by Spam filter <time>1d ago</time></span>
+        <span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-700">Spam</span>
+      </div>
+      <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+        <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Approve</button>
+        <span class="text-gray-300">&middot;</span>
+        <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Reject</button>
+        <span class="text-gray-300">&middot;</span>
+        <a href="/posts/tailwind-v4-css-first-config" class="text-gray-600 hover:text-gray-900">View on post</a>
+        <span class="text-gray-300">&middot;</span>
+        <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+      </div>
+    </li>
+
+    <li class="p-4">
+      <p class="text-sm text-gray-900">First! &mdash; also way too long, nobody's reading all that.</p>
+      <div class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-500">
+        <span>on <a href="/posts/argon2id-beginners-guide" class="font-medium text-brand-700 hover:text-brand-900">A beginner's guide to Argon2id</a></span>
+        <span>by <a href="/u/anon-42" class="text-brand-700 hover:text-brand-900">anon-42</a></span>
+        <span>flagged by <a href="/u/sarah-chen" class="text-brand-700 hover:text-brand-900">sarah-chen</a> <time>2d ago</time></span>
+        <span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-700">Inappropriate</span>
+      </div>
+      <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
+        <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Approve</button>
+        <span class="text-gray-300">&middot;</span>
+        <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Reject</button>
+        <span class="text-gray-300">&middot;</span>
+        <a href="/posts/argon2id-beginners-guide" class="text-gray-600 hover:text-gray-900">View on post</a>
+        <span class="text-gray-300">&middot;</span>
+        <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+      </div>
+    </li>
+  </ul>
+
+  {{> pagination prevDisabled=true currentPage=1 totalPages=2 nextHref="/admin/comments?page=2&status=awaiting"}}
+</div>
