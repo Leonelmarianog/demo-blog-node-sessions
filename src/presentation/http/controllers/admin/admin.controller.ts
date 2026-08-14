@@ -31,4 +31,14 @@ export class AdminController {
       activeAdminNav: 'comments',
     };
   }
+
+  @Get('users')
+  @Render('pages/admin-users')
+  users(): { appTitle: string; year: number; activeAdminNav: string } {
+    return {
+      appTitle: 'Demo Blog',
+      year: new Date().getFullYear(),
+      activeAdminNav: 'users',
+    };
+  }
 }
