@@ -41,4 +41,14 @@ export class AdminController {
       activeAdminNav: 'users',
     };
   }
+
+  @Get('tags')
+  @Render('pages/admin-tags')
+  tags(): { appTitle: string; year: number; activeAdminNav: string } {
+    return {
+      appTitle: 'Demo Blog',
+      year: new Date().getFullYear(),
+      activeAdminNav: 'tags',
+    };
+  }
 }

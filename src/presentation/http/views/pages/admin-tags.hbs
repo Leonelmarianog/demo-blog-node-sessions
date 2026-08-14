@@ -1,0 +1,171 @@
+{{> flash}}
+
+<div class="space-y-6">
+  <div>
+    {{> admin-nav}}
+    <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+      <h1 class="text-2xl font-bold tracking-tight text-gray-900">Tags</h1>
+      <button type="button" class="cursor-pointer rounded-md bg-brand-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-brand-700">New tag</button>
+    </div>
+  </div>
+
+  <form action="/admin/tags" method="get" class="flex flex-wrap items-center gap-3">
+    <label for="admin-tags-search" class="sr-only">Search tags</label>
+    <input id="admin-tags-search" name="q" type="search" placeholder="Search by tag name…" class="block w-full max-w-xs rounded-md border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
+
+    <button type="submit" class="cursor-pointer rounded-md bg-brand-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-brand-700">Filter</button>
+  </form>
+
+  <p class="mb-3 text-right text-sm text-gray-500">Showing 18 results</p>
+
+  <div class="overflow-x-auto rounded-lg border border-gray-200 bg-white">
+    <table class="min-w-full divide-y divide-gray-200 text-sm">
+      <thead>
+        <tr class="text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+          <th class="p-4 font-semibold">
+            <button type="button" class="group inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-gray-500 hover:text-gray-900 cursor-pointer">
+              Tag
+              <span class="inline-flex flex-col items-center" aria-hidden="true">
+                <svg class="h-2.5 w-2.5 text-gray-300 group-hover:text-gray-400" viewBox="0 0 10 10" fill="currentColor"><path d="M5 2L9 7L1 7Z"/></svg>
+                <svg class="h-2.5 w-2.5 text-gray-300 group-hover:text-gray-400" viewBox="0 0 10 10" fill="currentColor"><path d="M5 8L1 3L9 3Z"/></svg>
+              </span>
+            </button>
+          </th>
+          <th class="p-4 font-semibold">
+            <button type="button" class="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-gray-900 cursor-pointer" aria-sort="descending">
+              Posts
+              <span class="inline-flex flex-col items-center" aria-hidden="true">
+                <svg class="h-2.5 w-2.5 text-gray-300" viewBox="0 0 10 10" fill="currentColor"><path d="M5 2L9 7L1 7Z"/></svg>
+                <svg class="h-2.5 w-2.5 text-brand-700" viewBox="0 0 10 10" fill="currentColor"><path d="M5 8L1 3L9 3Z"/></svg>
+              </span>
+            </button>
+          </th>
+          <th class="p-4 text-right font-semibold">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <tr>
+          <td class="p-4"><a href="/tag/nestjs" class="font-medium text-gray-900 hover:text-brand-700">nestjs</a></td>
+          <td class="p-4 whitespace-nowrap text-gray-500">14</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Rename</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Merge</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4"><a href="/tag/handlebars" class="font-medium text-gray-900 hover:text-brand-700">handlebars</a></td>
+          <td class="p-4 whitespace-nowrap text-gray-500">9</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Rename</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Merge</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4"><a href="/tag/tailwind" class="font-medium text-gray-900 hover:text-brand-700">tailwind</a></td>
+          <td class="p-4 whitespace-nowrap text-gray-500">7</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Rename</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Merge</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4"><a href="/tag/auth" class="font-medium text-gray-900 hover:text-brand-700">auth</a></td>
+          <td class="p-4 whitespace-nowrap text-gray-500">6</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Rename</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Merge</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4"><a href="/tag/sessions" class="font-medium text-gray-900 hover:text-brand-700">sessions</a></td>
+          <td class="p-4 whitespace-nowrap text-gray-500">5</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Rename</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Merge</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4"><a href="/tag/architecture" class="font-medium text-gray-900 hover:text-brand-700">architecture</a></td>
+          <td class="p-4 whitespace-nowrap text-gray-500">4</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Rename</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Merge</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4"><a href="/tag/testing" class="font-medium text-gray-900 hover:text-brand-700">testing</a></td>
+          <td class="p-4 whitespace-nowrap text-gray-500">3</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Rename</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Merge</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4"><a href="/tag/typescript" class="font-medium text-gray-900 hover:text-brand-700">typescript</a></td>
+          <td class="p-4 whitespace-nowrap text-gray-500">3</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Rename</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Merge</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4"><a href="/tag/nest-js" class="font-medium text-gray-900 hover:text-brand-700">nest-js</a></td>
+          <td class="p-4 whitespace-nowrap text-gray-500">1</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Rename</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Merge</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4"><a href="/tag/nestjs-tutorial" class="font-medium text-gray-900 hover:text-brand-700">nestjs-tutorial</a></td>
+          <td class="p-4 whitespace-nowrap text-gray-500">0</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Rename</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Merge</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  {{> pagination prevDisabled=true currentPage=1 totalPages=2 nextHref="/admin/tags?page=2"}}
+</div>
