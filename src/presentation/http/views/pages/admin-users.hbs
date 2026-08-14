@@ -1,0 +1,265 @@
+{{> flash}}
+
+<div class="space-y-6">
+  <div>
+    {{> admin-nav}}
+    <h1 class="mt-4 text-2xl font-bold tracking-tight text-gray-900">Users</h1>
+  </div>
+
+  <form action="/admin/users" method="get" class="flex flex-wrap items-center gap-3">
+    <label for="admin-users-search" class="sr-only">Search users</label>
+    <input id="admin-users-search" name="q" type="search" placeholder="Search by name, username, or email…" class="block w-full max-w-xs rounded-md border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
+
+    <label for="admin-users-role" class="sr-only">Filter by role</label>
+    <select id="admin-users-role" name="role" class="rounded-md border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+      <option value="">All roles</option>
+      <option value="reader">Reader</option>
+      <option value="author">Author</option>
+      <option value="admin">Admin</option>
+    </select>
+
+    <label for="admin-users-status" class="sr-only">Filter by status</label>
+    <select id="admin-users-status" name="status" class="rounded-md border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+      <option value="">All statuses</option>
+      <option value="active">Active</option>
+      <option value="unverified">Unverified</option>
+      <option value="suspended">Suspended</option>
+      <option value="self-deactivated">Self-deactivated</option>
+    </select>
+
+    <button type="submit" class="cursor-pointer rounded-md bg-brand-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-brand-700">Filter</button>
+  </form>
+
+  <p class="mb-3 text-right text-sm text-gray-500">Showing 1,205 results</p>
+
+  <div class="overflow-x-auto rounded-lg border border-gray-200 bg-white">
+    <table class="min-w-full divide-y divide-gray-200 text-sm">
+      <thead>
+        <tr class="text-left text-xs font-semibold uppercase tracking-wide text-gray-500">
+          <th class="p-4 font-semibold">
+            <button type="button" class="group inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-gray-500 hover:text-gray-900 cursor-pointer">
+              User
+              <span class="inline-flex flex-col items-center" aria-hidden="true">
+                <svg class="h-2.5 w-2.5 text-gray-300 group-hover:text-gray-400" viewBox="0 0 10 10" fill="currentColor"><path d="M5 2L9 7L1 7Z"/></svg>
+                <svg class="h-2.5 w-2.5 text-gray-300 group-hover:text-gray-400" viewBox="0 0 10 10" fill="currentColor"><path d="M5 8L1 3L9 3Z"/></svg>
+              </span>
+            </button>
+          </th>
+          <th class="p-4 font-semibold">Role</th>
+          <th class="p-4 font-semibold">Status</th>
+          <th class="p-4 font-semibold">
+            <button type="button" class="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wide text-gray-900 cursor-pointer" aria-sort="descending">
+              Joined
+              <span class="inline-flex flex-col items-center" aria-hidden="true">
+                <svg class="h-2.5 w-2.5 text-gray-300" viewBox="0 0 10 10" fill="currentColor"><path d="M5 2L9 7L1 7Z"/></svg>
+                <svg class="h-2.5 w-2.5 text-brand-700" viewBox="0 0 10 10" fill="currentColor"><path d="M5 8L1 3L9 3Z"/></svg>
+              </span>
+            </button>
+          </th>
+          <th class="p-4 text-right font-semibold">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <tr>
+          <td class="p-4">
+            <a href="/u/anon-42" class="font-medium text-gray-900 hover:text-brand-700">anon-42</a>
+            <p class="text-xs text-gray-500">@anon-42</p>
+          </td>
+          <td class="p-4">
+            <select class="cursor-pointer rounded-md border border-gray-300 px-2 py-1 text-xs outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+              <option value="reader" selected>Reader</option>
+              <option value="author">Author</option>
+              <option value="admin">Admin</option>
+            </select>
+          </td>
+          <td class="p-4">
+            <span class="inline-flex items-center rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-medium text-brand-700">Unverified</span>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Aug 13, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/u/anon-42" class="text-gray-600 hover:text-gray-900">View</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Suspend</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4">
+            <a href="/u/leonel-mariano" class="font-medium text-gray-900 hover:text-brand-700">Leonel Mariano</a>
+            <p class="text-xs text-gray-500">@leonel-mariano</p>
+          </td>
+          <td class="p-4">
+            <select class="cursor-pointer rounded-md border border-gray-300 px-2 py-1 text-xs outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+              <option value="reader">Reader</option>
+              <option value="author">Author</option>
+              <option value="admin" selected>Admin</option>
+            </select>
+          </td>
+          <td class="p-4">
+            <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">Active</span>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Aug 10, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/u/leonel-mariano" class="text-gray-600 hover:text-gray-900">View</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Suspend</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4">
+            <a href="/u/jane-doe" class="font-medium text-gray-900 hover:text-brand-700">jane-doe</a>
+            <p class="text-xs text-gray-500">@jane-doe</p>
+          </td>
+          <td class="p-4">
+            <select class="cursor-pointer rounded-md border border-gray-300 px-2 py-1 text-xs outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+              <option value="reader">Reader</option>
+              <option value="author" selected>Author</option>
+              <option value="admin">Admin</option>
+            </select>
+          </td>
+          <td class="p-4">
+            <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">Active</span>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Aug 8, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/u/jane-doe" class="text-gray-600 hover:text-gray-900">View</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Suspend</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4">
+            <a href="/u/promo-bot" class="font-medium text-gray-900 hover:text-brand-700">promo-bot</a>
+            <p class="text-xs text-gray-500">@promo-bot</p>
+          </td>
+          <td class="p-4">
+            <select class="cursor-pointer rounded-md border border-gray-300 px-2 py-1 text-xs outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+              <option value="reader" selected>Reader</option>
+              <option value="author">Author</option>
+              <option value="admin">Admin</option>
+            </select>
+          </td>
+          <td class="p-4">
+            <span class="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-medium text-red-700">Suspended</span>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Jul 30, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/u/promo-bot" class="text-gray-600 hover:text-gray-900">View</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Activate</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4">
+            <a href="/u/sarah-chen" class="font-medium text-gray-900 hover:text-brand-700">sarah-chen</a>
+            <p class="text-xs text-gray-500">@sarah-chen</p>
+          </td>
+          <td class="p-4">
+            <select class="cursor-pointer rounded-md border border-gray-300 px-2 py-1 text-xs outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+              <option value="reader">Reader</option>
+              <option value="author" selected>Author</option>
+              <option value="admin">Admin</option>
+            </select>
+          </td>
+          <td class="p-4">
+            <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">Active</span>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Jul 20, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/u/sarah-chen" class="text-gray-600 hover:text-gray-900">View</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Suspend</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4">
+            <a href="/u/mike-ross" class="font-medium text-gray-900 hover:text-brand-700">mike-ross</a>
+            <p class="text-xs text-gray-500">@mike-ross</p>
+          </td>
+          <td class="p-4">
+            <select class="cursor-pointer rounded-md border border-gray-300 px-2 py-1 text-xs outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+              <option value="reader" selected>Reader</option>
+              <option value="author">Author</option>
+              <option value="admin">Admin</option>
+            </select>
+          </td>
+          <td class="p-4">
+            <span class="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-medium text-red-700">Suspended</span>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Jul 18, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/u/mike-ross" class="text-gray-600 hover:text-gray-900">View</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Activate</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4">
+            <a href="/u/alex-k" class="font-medium text-gray-900 hover:text-brand-700">alex-k</a>
+            <p class="text-xs text-gray-500">@alex-k</p>
+          </td>
+          <td class="p-4">
+            <select class="cursor-pointer rounded-md border border-gray-300 px-2 py-1 text-xs outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+              <option value="reader" selected>Reader</option>
+              <option value="author">Author</option>
+              <option value="admin">Admin</option>
+            </select>
+          </td>
+          <td class="p-4">
+            <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700">Active</span>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Jul 15, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/u/alex-k" class="text-gray-600 hover:text-gray-900">View</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-gray-600 hover:text-gray-900">Suspend</button>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="p-4">
+            <a href="/u/troll-99" class="font-medium text-gray-900 hover:text-brand-700">troll-99</a>
+            <p class="text-xs text-gray-500">@troll-99</p>
+          </td>
+          <td class="p-4">
+            <select class="cursor-pointer rounded-md border border-gray-300 px-2 py-1 text-xs outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+              <option value="reader" selected>Reader</option>
+              <option value="author">Author</option>
+              <option value="admin">Admin</option>
+            </select>
+          </td>
+          <td class="p-4">
+            <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-600">Self-deactivated</span>
+          </td>
+          <td class="p-4 whitespace-nowrap text-gray-500">Jun 5, 2026</td>
+          <td class="p-4 text-right whitespace-nowrap">
+            <a href="/u/troll-99" class="text-gray-600 hover:text-gray-900">View</a>
+            <span class="text-gray-300">&middot;</span>
+            <button type="button" class="cursor-pointer text-red-600 hover:text-red-800">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  {{> pagination prevDisabled=true currentPage=1 totalPages=151 nextHref="/admin/users?page=2"}}
+</div>
