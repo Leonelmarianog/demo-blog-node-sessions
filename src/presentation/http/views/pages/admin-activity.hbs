@@ -1,0 +1,113 @@
+{{> flash}}
+
+<div class="space-y-6">
+  <div>
+    {{> admin-nav}}
+    <h1 class="mt-4 text-2xl font-bold tracking-tight text-gray-900">Activity</h1>
+  </div>
+
+  <form action="/admin/activity" method="get" class="flex flex-wrap items-center gap-3">
+    <label for="admin-activity-actor" class="sr-only">Search by actor</label>
+    <input id="admin-activity-actor" name="actor" type="search" placeholder="Search by username…" class="block w-full max-w-xs rounded-md border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
+
+    <label for="admin-activity-type" class="sr-only">Filter by event type</label>
+    <select id="admin-activity-type" name="type" class="rounded-md border border-gray-300 px-3 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500">
+      <option value="">All types</option>
+      <option value="users">Users</option>
+      <option value="posts">Posts</option>
+      <option value="comments">Comments</option>
+      <option value="tags">Tags</option>
+    </select>
+
+    <label for="admin-activity-from" class="sr-only">From date</label>
+    <input id="admin-activity-from" name="from" type="date" class="rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-500 outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
+
+    <span class="text-gray-400" aria-hidden="true">&rarr;</span>
+
+    <label for="admin-activity-to" class="sr-only">To date</label>
+    <input id="admin-activity-to" name="to" type="date" class="rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-500 outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
+
+    <label class="inline-flex items-center gap-2 text-sm text-gray-600">
+      <input type="checkbox" name="adminOnly" value="true" class="rounded border-gray-300 text-brand-600 focus:ring-brand-500" />
+      Admin actions only
+    </label>
+
+    <button type="submit" class="cursor-pointer rounded-md bg-brand-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-brand-700">Filter</button>
+  </form>
+
+  <p class="mb-3 text-right text-sm text-gray-500">Showing 248 results</p>
+
+  <ul class="divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white">
+    <li class="p-4">
+      <div class="flex items-center justify-between gap-x-4 gap-y-1">
+        <p class="min-w-0 text-sm text-gray-900"><a href="/u/leonel-mariano" class="font-medium text-brand-700 hover:text-brand-900">Leonel Mariano</a> suspended <a href="/u/promo-bot" class="font-medium text-brand-700 hover:text-brand-900">promo-bot</a></p>
+        <time class="shrink-0 text-xs text-gray-500">10m ago</time>
+      </div>
+    </li>
+
+    <li class="p-4">
+      <div class="flex items-center justify-between gap-x-4 gap-y-1">
+        <p class="min-w-0 text-sm text-gray-900"><a href="/u/jane-doe" class="font-medium text-brand-700 hover:text-brand-900">jane-doe</a> flagged a comment on <a href="/admin/comments?status=awaiting&q=Nice+writeup" class="font-medium text-brand-700 hover:text-brand-900">Building a server-rendered blog with NestJS and Handlebars</a></p>
+        <time class="shrink-0 text-xs text-gray-500">2h ago</time>
+      </div>
+    </li>
+
+    <li class="p-4">
+      <div class="flex items-center justify-between gap-x-4 gap-y-1">
+        <p class="min-w-0 text-sm text-gray-900"><a href="/u/jane-doe" class="font-medium text-brand-700 hover:text-brand-900">jane-doe</a> registered</p>
+        <time class="shrink-0 text-xs text-gray-500">5h ago</time>
+      </div>
+    </li>
+
+    <li class="p-4">
+      <div class="flex items-center justify-between gap-x-4 gap-y-1">
+        <p class="min-w-0 text-sm text-gray-900"><a href="/u/leonel-mariano" class="font-medium text-brand-700 hover:text-brand-900">Leonel Mariano</a> approved a comment on <a href="/admin/comments?status=approved&q=Great+write-up" class="font-medium text-brand-700 hover:text-brand-900">Clean architecture on the server, without the ceremony</a></p>
+        <time class="shrink-0 text-xs text-gray-500">8h ago</time>
+      </div>
+    </li>
+
+    <li class="p-4">
+      <div class="flex items-center justify-between gap-x-4 gap-y-1">
+        <p class="min-w-0 text-sm text-gray-900"><a href="/u/leonel-mariano" class="font-medium text-brand-700 hover:text-brand-900">Leonel Mariano</a> published <a href="/posts/session-cookies-vs-jwt" class="font-medium text-brand-700 hover:text-brand-900">Session cookies vs JWT: picking an auth strategy</a></p>
+        <time class="shrink-0 text-xs text-gray-500">1d ago</time>
+      </div>
+    </li>
+
+    <li class="p-4">
+      <div class="flex items-center justify-between gap-x-4 gap-y-1">
+        <p class="min-w-0 text-sm text-gray-900"><a href="/u/leonel-mariano" class="font-medium text-brand-700 hover:text-brand-900">Leonel Mariano</a> featured <a href="/posts/session-cookies-vs-jwt" class="font-medium text-brand-700 hover:text-brand-900">Session cookies vs JWT: picking an auth strategy</a></p>
+        <time class="shrink-0 text-xs text-gray-500">1d ago</time>
+      </div>
+    </li>
+
+    <li class="p-4">
+      <div class="flex items-center justify-between gap-x-4 gap-y-1">
+        <p class="min-w-0 text-sm text-gray-900">Spam filter flagged a comment on <a href="/admin/comments?status=awaiting&q=best-deals-now" class="font-medium text-brand-700 hover:text-brand-900">Clean architecture on the server, without the ceremony</a></p>
+        <time class="shrink-0 text-xs text-gray-500">2d ago</time>
+      </div>
+    </li>
+
+    <li class="p-4">
+      <div class="flex items-center justify-between gap-x-4 gap-y-1">
+        <p class="min-w-0 text-sm text-gray-900"><a href="/u/leonel-mariano" class="font-medium text-brand-700 hover:text-brand-900">Leonel Mariano</a> created a draft <a href="/posts/redis-backed-sessions/edit" class="font-medium text-brand-700 hover:text-brand-900">Redis-backed sessions for a multi-instance deploy</a></p>
+        <time class="shrink-0 text-xs text-gray-500">3d ago</time>
+      </div>
+    </li>
+
+    <li class="p-4">
+      <div class="flex items-center justify-between gap-x-4 gap-y-1">
+        <p class="min-w-0 text-sm text-gray-900"><a href="/u/leonel-mariano" class="font-medium text-brand-700 hover:text-brand-900">Leonel Mariano</a> rejected a comment on <a href="/admin/comments?status=rejected&q=This+is+garbage" class="font-medium text-brand-700 hover:text-brand-900">Building a server-rendered blog with NestJS and Handlebars</a></p>
+        <time class="shrink-0 text-xs text-gray-500">4d ago</time>
+      </div>
+    </li>
+
+    <li class="p-4">
+      <div class="flex items-center justify-between gap-x-4 gap-y-1">
+        <p class="min-w-0 text-sm text-gray-900"><a href="/u/leonel-mariano" class="font-medium text-brand-700 hover:text-brand-900">Leonel Mariano</a> renamed tag <a href="/tag/nest-js" class="font-medium text-brand-700 hover:text-brand-900">nest-js</a> to <a href="/tag/nestjs" class="font-medium text-brand-700 hover:text-brand-900">nestjs</a></p>
+        <time class="shrink-0 text-xs text-gray-500">5d ago</time>
+      </div>
+    </li>
+  </ul>
+
+  {{> pagination prevDisabled=true currentPage=1 totalPages=25 nextHref="/admin/activity?page=2"}}
+</div>
