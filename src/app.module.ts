@@ -10,6 +10,7 @@ import { SearchModule } from '@modules/search.module';
 import { TagModule } from '@modules/tag.module';
 import { UserModule } from '@modules/user.module';
 import { SettingsModule } from '@modules/settings.module';
+import { AdminModule } from '@modules/admin.module';
 import { NotFoundExceptionFilter } from '@presentation/http/exceptions/not-found.exception.filter';
 
 @Module({
@@ -27,6 +28,7 @@ import { NotFoundExceptionFilter } from '@presentation/http/exceptions/not-found
     TagModule,
     UserModule,
     SettingsModule,
+    AdminModule,
   ],
   providers: [
     {
