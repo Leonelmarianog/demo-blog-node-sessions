@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
+import type { Server } from 'node:http';
 import { AppModule } from './../src/app.module';
 import { setupApp } from './utils/e2e-test.setup';
 
@@ -22,7 +23,7 @@ describe('Post editor pages (e2e)', () => {
   });
 
   it('GET /posts/new renders the create form', () => {
-    return request(app.getHttpServer())
+    return request(app.getHttpServer() as Server)
       .get('/posts/new')
       .expect(200)
       .expect('Content-Type', /text\/html/)
@@ -32,7 +33,7 @@ describe('Post editor pages (e2e)', () => {
   });
 
   it('GET /posts/:slug/edit renders the edit form pre-filled', () => {
-    return request(app.getHttpServer())
+    return request(app.getHttpServer() as Server)
       .get('/posts/building-a-server-rendered-blog/edit')
       .expect(200)
       .expect('Content-Type', /text\/html/)

@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
+import type { Server } from 'node:http';
 import { AppModule } from './../src/app.module';
 import { setupApp } from './utils/e2e-test.setup';
 
@@ -22,7 +23,7 @@ describe('Not found page (e2e)', () => {
   });
 
   it('GET /no-such-route renders the 404 page', () => {
-    return request(app.getHttpServer())
+    return request(app.getHttpServer() as Server)
       .get('/no-such-route')
       .expect(404)
       .expect('Content-Type', /text\/html/)

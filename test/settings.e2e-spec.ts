@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
+import type { Server } from 'node:http';
 import { AppModule } from './../src/app.module';
 import { setupApp } from './utils/e2e-test.setup';
 
@@ -22,7 +23,7 @@ describe('Settings pages (e2e)', () => {
   });
 
   it('GET /settings/profile renders the profile settings', () => {
-    return request(app.getHttpServer())
+    return request(app.getHttpServer() as Server)
       .get('/settings/profile')
       .expect(200)
       .expect('Content-Type', /text\/html/)
@@ -33,7 +34,7 @@ describe('Settings pages (e2e)', () => {
   });
 
   it('GET /settings/account renders the account settings', () => {
-    return request(app.getHttpServer())
+    return request(app.getHttpServer() as Server)
       .get('/settings/account')
       .expect(200)
       .expect('Content-Type', /text\/html/)
