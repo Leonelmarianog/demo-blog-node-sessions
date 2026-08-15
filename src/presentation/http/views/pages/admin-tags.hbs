@@ -1,12 +1,11 @@
 {{> flash}}
 
 <div class="space-y-6">
-  <div>
-    {{> admin-nav}}
-    <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
-      <h1 class="text-2xl font-bold tracking-tight text-gray-900">Tags</h1>
-      <button type="button" class="cursor-pointer rounded-md bg-brand-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-brand-700">New tag</button>
-    </div>
+  <h1 class="text-2xl font-bold tracking-tight text-gray-900">Admin Panel</h1>
+  {{> admin-nav}}
+
+  <div class="flex justify-end">
+    <button type="button" class="cursor-pointer rounded-md bg-brand-500 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-brand-700">New tag</button>
   </div>
 
   <form action="/admin/tags" method="get" class="flex flex-wrap items-center gap-3">
