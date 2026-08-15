@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
+import type { Server } from 'node:http';
 import { AppModule } from './../src/app.module';
 import { setupApp } from './utils/e2e-test.setup';
 
@@ -22,7 +23,7 @@ describe('Tag topic page (e2e)', () => {
   });
 
   it('GET /tag/:slug renders the tag topic page', () => {
-    return request(app.getHttpServer())
+    return request(app.getHttpServer() as Server)
       .get('/tag/nestjs')
       .expect(200)
       .expect('Content-Type', /text\/html/)

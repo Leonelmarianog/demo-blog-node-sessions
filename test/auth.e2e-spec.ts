@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
+import type { Server } from 'node:http';
 import { AppModule } from './../src/app.module';
 import { setupApp } from './utils/e2e-test.setup';
 
@@ -22,7 +23,7 @@ describe('Auth pages (e2e)', () => {
   });
 
   it('GET /login renders the sign-in form', () => {
-    return request(app.getHttpServer())
+    return request(app.getHttpServer() as Server)
       .get('/login')
       .expect(200)
       .expect('Content-Type', /text\/html/)
@@ -33,7 +34,7 @@ describe('Auth pages (e2e)', () => {
   });
 
   it('GET /register renders the registration form', () => {
-    return request(app.getHttpServer())
+    return request(app.getHttpServer() as Server)
       .get('/register')
       .expect(200)
       .expect('Content-Type', /text\/html/)
@@ -43,7 +44,7 @@ describe('Auth pages (e2e)', () => {
   });
 
   it('GET /forgot-password renders the reset request form', () => {
-    return request(app.getHttpServer())
+    return request(app.getHttpServer() as Server)
       .get('/forgot-password')
       .expect(200)
       .expect('Content-Type', /text\/html/)
@@ -53,7 +54,7 @@ describe('Auth pages (e2e)', () => {
   });
 
   it('GET /forgot-password/sent renders the email-sent confirmation', () => {
-    return request(app.getHttpServer())
+    return request(app.getHttpServer() as Server)
       .get('/forgot-password/sent')
       .expect(200)
       .expect('Content-Type', /text\/html/)
@@ -63,7 +64,7 @@ describe('Auth pages (e2e)', () => {
   });
 
   it('GET /reset-password renders the set-new-password form', () => {
-    return request(app.getHttpServer())
+    return request(app.getHttpServer() as Server)
       .get('/reset-password')
       .expect(200)
       .expect('Content-Type', /text\/html/)
