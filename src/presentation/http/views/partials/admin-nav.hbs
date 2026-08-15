@@ -1,8 +1,10 @@
-<nav class="flex flex-wrap items-center gap-x-5 gap-y-1 border-b border-gray-200 pb-3 text-sm" aria-label="Admin navigation">
-  <a href="/admin" class="{{#if (eq activeAdminNav "overview")}}font-medium text-brand-700{{else}}text-gray-600 hover:text-gray-900{{/if}}">Overview</a>
-  <a href="/admin/posts" class="{{#if (eq activeAdminNav "posts")}}font-medium text-brand-700{{else}}text-gray-600 hover:text-gray-900{{/if}}">Posts</a>
-  <a href="/admin/comments" class="{{#if (eq activeAdminNav "comments")}}font-medium text-brand-700{{else}}text-gray-600 hover:text-gray-900{{/if}}">Comments</a>
-  <a href="/admin/users" class="{{#if (eq activeAdminNav "users")}}font-medium text-brand-700{{else}}text-gray-600 hover:text-gray-900{{/if}}">Users</a>
-  <a href="/admin/tags" class="{{#if (eq activeAdminNav "tags")}}font-medium text-brand-700{{else}}text-gray-600 hover:text-gray-900{{/if}}">Tags</a>
-  <a href="/admin/activity" class="{{#if (eq activeAdminNav "activity")}}font-medium text-brand-700{{else}}text-gray-600 hover:text-gray-900{{/if}}">Activity</a>
-</nav>
+<div class="border-b border-gray-200">
+  <nav class="-mb-px flex gap-6" aria-label="Admin navigation">
+    <a href="/admin" class="border-b-2 px-1 pb-3 text-sm font-medium {{#if (eq activeAdminNav "overview")}}border-brand-500 text-brand-700{{else}}border-transparent text-gray-500 hover:text-gray-700{{/if}}">Overview</a>
+    <a href="/admin/posts" class="border-b-2 px-1 pb-3 text-sm font-medium {{#if (eq activeAdminNav "posts")}}border-brand-500 text-brand-700{{else}}border-transparent text-gray-500 hover:text-gray-700{{/if}}">Posts</a>
+    <a href="/admin/comments" class="border-b-2 px-1 pb-3 text-sm font-medium {{#if (eq activeAdminNav "comments")}}border-brand-500 text-brand-700{{else}}border-transparent text-gray-500 hover:text-gray-700{{/if}}">Comments</a>
+    <a href="/admin/users" class="border-b-2 px-1 pb-3 text-sm font-medium {{#if (eq activeAdminNav "users")}}border-brand-500 text-brand-700{{else}}border-transparent text-gray-500 hover:text-gray-700{{/if}}">Users</a>
+    <a href="/admin/tags" class="border-b-2 px-1 pb-3 text-sm font-medium {{#if (eq activeAdminNav "tags")}}border-brand-500 text-brand-700{{else}}border-transparent text-gray-500 hover:text-gray-700{{/if}}">Tags</a>
+    <a href="/admin/activity" class="border-b-2 px-1 pb-3 text-sm font-medium {{#if (eq activeAdminNav "activity")}}border-brand-500 text-brand-700{{else}}border-transparent text-gray-500 hover:text-gray-700{{/if}}">Activity</a>
+  </nav>
+</div>

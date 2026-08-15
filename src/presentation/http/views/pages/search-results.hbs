@@ -1,4 +1,5 @@
 <div class="space-y-8">
+  <h1 class="text-2xl font-bold tracking-tight text-gray-900"><span class="text-gray-500">Results for</span> nestjs</h1>
   <div class="border-b border-gray-200">
     <nav class="-mb-px flex gap-6" aria-label="Search results">
       <a href="/search/posts" class="border-b-2 px-1 pb-3 text-sm font-medium {{#if (eq activeTab 'posts')}}border-brand-500 text-brand-700{{else}}border-transparent text-gray-500 hover:text-gray-700{{/if}}">Posts</a>
@@ -35,18 +36,6 @@
       }}
 
       {{> post-card
-        href="/posts/clean-architecture-on-the-server"
-        title="Clean architecture on the server, without the ceremony"
-        excerpt="Domain, application, infrastructure, presentation — kept just strict enough to keep the codebase honest as it grows, without drowning a small app in abstraction."
-        author="Leonel Mariano"
-        authorHref="/u/leonel-mariano"
-        dateIso="2026-07-15"
-        dateLabel="Jul 15, 2026"
-        readTime="7"
-        tags=(array "architecture" "domain")
-      }}
-
-      {{> post-card
         href="/posts/tailwind-v4-css-first-config"
         title="Tailwind v4's CSS-first config in a NestJS app"
         excerpt="No tailwind.config.js, no content array — just an @import and an @theme block. How the new CSS-first setup fits cleanly into a server-rendered build pipeline."
@@ -56,6 +45,18 @@
         dateLabel="Jul 28, 2026"
         readTime="4"
         tags=(array "tailwind" "css")
+      }}
+
+      {{> post-card
+        href="/posts/clean-architecture-on-the-server"
+        title="Clean architecture on the server, without the ceremony"
+        excerpt="Domain, application, infrastructure, presentation — kept just strict enough to keep the codebase honest as it grows, without drowning a small app in abstraction."
+        author="Leonel Mariano"
+        authorHref="/u/leonel-mariano"
+        dateIso="2026-07-15"
+        dateLabel="Jul 15, 2026"
+        readTime="7"
+        tags=(array "architecture" "domain")
       }}
     </div>
 
@@ -67,25 +68,25 @@
       <a href="/tag/nestjs" class="block rounded-lg border border-gray-200 bg-white p-5 transition-colors hover:border-brand-500">
         <div class="flex items-center justify-between">
           <span class="text-lg font-semibold text-gray-900">#nestjs</span>
-          <span class="text-sm text-gray-500">12 posts</span>
+          <span class="text-sm text-gray-500">14 posts</span>
         </div>
         <p class="mt-1 text-sm text-gray-500">Posts tagged nestjs.</p>
-      </a>
-
-      <a href="/tag/architecture" class="block rounded-lg border border-gray-200 bg-white p-5 transition-colors hover:border-brand-500">
-        <div class="flex items-center justify-between">
-          <span class="text-lg font-semibold text-gray-900">#architecture</span>
-          <span class="text-sm text-gray-500">8 posts</span>
-        </div>
-        <p class="mt-1 text-sm text-gray-500">Posts tagged architecture.</p>
       </a>
 
       <a href="/tag/auth" class="block rounded-lg border border-gray-200 bg-white p-5 transition-colors hover:border-brand-500">
         <div class="flex items-center justify-between">
           <span class="text-lg font-semibold text-gray-900">#auth</span>
-          <span class="text-sm text-gray-500">5 posts</span>
+          <span class="text-sm text-gray-500">6 posts</span>
         </div>
         <p class="mt-1 text-sm text-gray-500">Posts tagged auth.</p>
+      </a>
+
+      <a href="/tag/architecture" class="block rounded-lg border border-gray-200 bg-white p-5 transition-colors hover:border-brand-500">
+        <div class="flex items-center justify-between">
+          <span class="text-lg font-semibold text-gray-900">#architecture</span>
+          <span class="text-sm text-gray-500">4 posts</span>
+        </div>
+        <p class="mt-1 text-sm text-gray-500">Posts tagged architecture.</p>
       </a>
     </div>
   {{/if}}
