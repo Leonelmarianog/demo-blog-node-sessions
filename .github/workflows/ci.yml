@@ -12,6 +12,20 @@ jobs:
   build-and-test:
     name: Lint, build, and test
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: demo_blog_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d demo_blog_test"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -33,6 +47,17 @@ jobs:
 
       - name: Unit tests
         run: npm test -- --passWithNoTests
+
+      - name: Run database migrations
+        run: npm run migration:run
+        env:
+          NODE_ENV: test
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_USER: postgres
+          DB_PASSWORD: postgres
+          DB_NAME: demo_blog_test
+          DB_TEST_NAME: demo_blog_test
 
       - name: E2E tests
         run: npm run test:e2e
