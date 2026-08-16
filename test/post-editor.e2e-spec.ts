@@ -14,7 +14,7 @@ describe('Post editor pages (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    setupApp(app);
+    await setupApp(app);
     await app.init();
   });
 

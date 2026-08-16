@@ -8,6 +8,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { join } from 'node:path';
 import { AppModule } from './app.module';
 import { configureViewEngine } from '@presentation/http/views/view-engine.config';
+import { buildSessionMiddleware } from '@infrastructure/session/session.middleware';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -18,6 +19,8 @@ async function bootstrap(): Promise<void> {
       whitelist: true,
     }),
   );
+
+  app.use(await buildSessionMiddleware());
 
   configureViewEngine(app, {
     viewsPath: join(__dirname, 'presentation', 'http', 'views'),

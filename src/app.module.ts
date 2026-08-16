@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { envSchema } from './env.schema';
@@ -13,6 +13,7 @@ import { UserModule } from '@modules/user.module';
 import { SettingsModule } from '@modules/settings.module';
 import { AdminModule } from '@modules/admin.module';
 import { NotFoundExceptionFilter } from '@presentation/http/exceptions/not-found.exception.filter';
+import { CurrentUserMiddleware } from '@presentation/http/middleware/current-user.middleware';
 
 @Module({
   imports: [
@@ -40,4 +41,8 @@ import { NotFoundExceptionFilter } from '@presentation/http/exceptions/not-found
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): void {
+    consumer.apply(CurrentUserMiddleware).forRoutes('*');
+  }
+}
