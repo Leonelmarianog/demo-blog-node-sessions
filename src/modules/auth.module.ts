@@ -14,10 +14,7 @@ import { UnitOfWork } from '@application/contracts/unit-of-work.interface';
 import { Mailer } from '@application/contracts/mailer.interface';
 import { SignedUrl } from '@application/contracts/signed-url.interface';
 import { TokenGenerator } from '@application/contracts/token-generator.interface';
-import {
-  REGISTER_USER_REPOSITORY,
-  RegisterUserRepository,
-} from '@application/use-cases/auth/register-user/register-user.repository.interface';
+import { RegisterUserRepository } from '@application/use-cases/auth/register-user/register-user.repository.interface';
 import { RegisterUserUseCase } from '@application/use-cases/auth/register-user/register-user.use-case';
 import { AuthController } from '@presentation/http/controllers/auth/auth.controller';
 import { RegisterUserController } from '@presentation/http/controllers/auth/register-user.controller';
@@ -37,7 +34,7 @@ import { RegisterUserController } from '@presentation/http/controllers/auth/regi
       inject: [ConfigService],
     },
     {
-      provide: REGISTER_USER_REPOSITORY,
+      provide: RegisterUserRepository,
       useClass: TypeOrmRegisterUserRepository,
     },
     {
@@ -62,7 +59,7 @@ import { RegisterUserController } from '@presentation/http/controllers/auth/regi
           config.get<string>('APP_BASE_URL')!,
         ),
       inject: [
-        REGISTER_USER_REPOSITORY,
+        RegisterUserRepository,
         PasswordHasher,
         UnitOfWork,
         Mailer,
