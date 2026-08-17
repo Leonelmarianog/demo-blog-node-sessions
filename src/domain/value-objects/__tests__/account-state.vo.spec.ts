@@ -1,4 +1,4 @@
-import { AccountState } from './account-state.vo';
+import { AccountState } from '../account-state.vo';
 
 describe('AccountState', () => {
   it('from() reconstitutes each state', () => {

@@ -1,4 +1,4 @@
-import { Argon2PasswordHasher } from './argon2-password-hasher';
+import { Argon2PasswordHasher } from '../argon2-password-hasher';
 
 describe('Argon2PasswordHasher', () => {
   const hasher = new Argon2PasswordHasher();

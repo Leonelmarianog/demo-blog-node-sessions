@@ -1,5 +1,5 @@
-import { Password } from './password.vo';
-import { DomainValidationException } from '../exceptions/domain-validation.exception';
+import { Password } from '../password.vo';
+import { DomainValidationException } from '../../exceptions/domain-validation.exception';
 
 describe('Password', () => {
   it('validate() returns null for a strong password', () => {

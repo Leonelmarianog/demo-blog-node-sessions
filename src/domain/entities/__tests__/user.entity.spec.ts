@@ -1,9 +1,9 @@
-import { User } from './user.entity';
-import { Email } from '../value-objects/email.vo';
-import { Username } from '../value-objects/username.vo';
-import { HashedPassword } from '../value-objects/hashed-password.vo';
-import { AccountStateValue } from '../value-objects/account-state.vo';
-import { ValidationException } from '../exceptions/validation.exception';
+import { User } from '../user.entity';
+import { Email } from '../../value-objects/email.vo';
+import { Username } from '../../value-objects/username.vo';
+import { HashedPassword } from '../../value-objects/hashed-password.vo';
+import { AccountStateValue } from '../../value-objects/account-state.vo';
+import { ValidationException } from '../../exceptions/validation.exception';
 
 describe('User', () => {
   it('validate() collects one error per bad field', () => {

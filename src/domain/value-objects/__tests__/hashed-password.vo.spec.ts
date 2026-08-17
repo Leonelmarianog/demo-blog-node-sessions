@@ -1,4 +1,4 @@
-import { HashedPassword } from './hashed-password.vo';
+import { HashedPassword } from '../hashed-password.vo';
 
 describe('HashedPassword', () => {
   it('fromHash() stores the hash string', () => {

@@ -1,4 +1,4 @@
-import { VerificationToken } from './verification-token';
+import { VerificationToken } from '../verification-token';
 
 describe('VerificationToken', () => {
   it('create() sets the token, user, and a future expiry', () => {

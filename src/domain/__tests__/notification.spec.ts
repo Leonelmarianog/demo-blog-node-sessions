@@ -1,4 +1,4 @@
-import { Notification } from './notification';
+import { Notification } from '../notification';
 
 describe('Notification', () => {
   it('starts with no errors', () => {

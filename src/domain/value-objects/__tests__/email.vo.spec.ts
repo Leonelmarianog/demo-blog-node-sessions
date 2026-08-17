@@ -1,5 +1,5 @@
-import { Email } from './email.vo';
-import { DomainValidationException } from '../exceptions/domain-validation.exception';
+import { Email } from '../email.vo';
+import { DomainValidationException } from '../../exceptions/domain-validation.exception';
 
 describe('Email', () => {
   it('validate() returns null for a valid email', () => {

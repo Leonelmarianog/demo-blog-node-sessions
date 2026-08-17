@@ -1,5 +1,5 @@
-import { Username } from './username.vo';
-import { DomainValidationException } from '../exceptions/domain-validation.exception';
+import { Username } from '../username.vo';
+import { DomainValidationException } from '../../exceptions/domain-validation.exception';
 
 describe('Username', () => {
   it('validate() returns null for a valid username', () => {

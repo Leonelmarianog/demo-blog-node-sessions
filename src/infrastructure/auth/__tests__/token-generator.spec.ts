@@ -1,4 +1,4 @@
-import { UuidTokenGenerator } from './token-generator';
+import { UuidTokenGenerator } from '../token-generator';
 
 describe('UuidTokenGenerator', () => {
   it('generates a non-empty uuid string', () => {
