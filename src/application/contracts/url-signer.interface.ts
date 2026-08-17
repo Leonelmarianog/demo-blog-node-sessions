@@ -6,9 +6,6 @@ export interface SignedUrlResult {
   readonly expired: boolean;
 }
 
-/**
- * Helper to sign URLs and verify their signatures.
- */
 export abstract class UrlSigner {
   /** Returns the given URL with a signature and an expiry time. */
   abstract sign(url: string, ttlSeconds: number): string;

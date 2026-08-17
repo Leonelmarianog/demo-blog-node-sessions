@@ -1,9 +1,3 @@
-/**
- * A Unit of Work runs a set of writes as one atomic operation.
- *
- * It keeps multistep writes atomic. The writes all commit together. If any
- * step throws, they all roll back.
- */
 export abstract class UnitOfWork {
   /**
    * Runs the given work inside a transaction and returns its result.
