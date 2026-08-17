@@ -1,5 +1,3 @@
-export const UNIT_OF_WORK = 'UNIT_OF_WORK';
-
 /**
  * Opaque marker for the active database transaction.
  * The application layer declares it empty so it imports no ORM type.
@@ -8,6 +6,6 @@ export const UNIT_OF_WORK = 'UNIT_OF_WORK';
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- opaque marker; ORM casts it to EntityManager
 export interface TransactionContext {}
 
-export interface UnitOfWork {
-  execute<T>(work: (tx: TransactionContext) => Promise<T>): Promise<T>;
+export abstract class UnitOfWork {
+  abstract execute<T>(work: (tx: TransactionContext) => Promise<T>): Promise<T>;
 }

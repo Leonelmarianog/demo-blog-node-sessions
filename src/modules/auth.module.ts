@@ -9,23 +9,11 @@ import { TypeOrmUnitOfWork } from '@infrastructure/database/typeorm-unit-of-work
 import { ConsoleMailer } from '@infrastructure/mail/console-mailer';
 import { UuidTokenGenerator } from '@infrastructure/auth/token-generator';
 import { HmacSignedUrl } from '@infrastructure/auth/signed-url';
-import {
-  PASSWORD_HASHER,
-  PasswordHasher,
-} from '@application/contracts/password-hasher.interface';
-import {
-  UNIT_OF_WORK,
-  UnitOfWork,
-} from '@application/contracts/unit-of-work.interface';
-import { MAILER, Mailer } from '@application/contracts/mailer.interface';
-import {
-  SIGNED_URL,
-  SignedUrl,
-} from '@application/contracts/signed-url.interface';
-import {
-  TOKEN_GENERATOR,
-  TokenGenerator,
-} from '@application/contracts/token-generator.interface';
+import { PasswordHasher } from '@application/contracts/password-hasher.interface';
+import { UnitOfWork } from '@application/contracts/unit-of-work.interface';
+import { Mailer } from '@application/contracts/mailer.interface';
+import { SignedUrl } from '@application/contracts/signed-url.interface';
+import { TokenGenerator } from '@application/contracts/token-generator.interface';
 import {
   REGISTER_USER_REPOSITORY,
   RegisterUserRepository,
@@ -38,12 +26,12 @@ import { RegisterUserController } from '@presentation/http/controllers/auth/regi
   imports: [TypeOrmModule.forFeature([UserEntity, VerificationTokenEntity])],
   controllers: [AuthController, RegisterUserController],
   providers: [
-    { provide: PASSWORD_HASHER, useClass: Argon2PasswordHasher },
-    { provide: UNIT_OF_WORK, useClass: TypeOrmUnitOfWork },
-    { provide: MAILER, useClass: ConsoleMailer },
-    { provide: TOKEN_GENERATOR, useClass: UuidTokenGenerator },
+    { provide: PasswordHasher, useClass: Argon2PasswordHasher },
+    { provide: UnitOfWork, useClass: TypeOrmUnitOfWork },
+    { provide: Mailer, useClass: ConsoleMailer },
+    { provide: TokenGenerator, useClass: UuidTokenGenerator },
     {
-      provide: SIGNED_URL,
+      provide: SignedUrl,
       useFactory: (config: ConfigService) =>
         new HmacSignedUrl(config.get<string>('SESSION_SECRET')!),
       inject: [ConfigService],
@@ -75,11 +63,11 @@ import { RegisterUserController } from '@presentation/http/controllers/auth/regi
         ),
       inject: [
         REGISTER_USER_REPOSITORY,
-        PASSWORD_HASHER,
-        UNIT_OF_WORK,
-        MAILER,
-        SIGNED_URL,
-        TOKEN_GENERATOR,
+        PasswordHasher,
+        UnitOfWork,
+        Mailer,
+        SignedUrl,
+        TokenGenerator,
         ConfigService,
       ],
     },

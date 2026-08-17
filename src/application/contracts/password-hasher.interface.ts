@@ -1,6 +1,4 @@
-export const PASSWORD_HASHER = 'PASSWORD_HASHER';
-
-export interface PasswordHasher {
-  hash(plain: string): Promise<string>;
-  verify(plain: string, hash: string): Promise<boolean>;
+export abstract class PasswordHasher {
+  abstract hash(plain: string): Promise<string>;
+  abstract verify(plain: string, hash: string): Promise<boolean>;
 }

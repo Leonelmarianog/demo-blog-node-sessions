@@ -1,5 +1,3 @@
-export const MAILER = 'MAILER';
-
-export interface Mailer {
-  send(to: string, subject: string, body: string): Promise<void>;
+export abstract class Mailer {
+  abstract send(to: string, subject: string, body: string): Promise<void>;
 }
