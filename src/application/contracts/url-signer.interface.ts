@@ -1,8 +1,5 @@
-/** The result of validating a signed URL. */
 export interface SignedUrlResult {
-  /** True when the signature is correct and the URL is not expired. */
   readonly valid: boolean;
-  /** True when the signature was correct, but the URL is expired. */
   readonly expired: boolean;
 }
 
