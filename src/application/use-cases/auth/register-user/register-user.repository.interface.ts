@@ -1,6 +1,6 @@
 import type { User } from '@domain/entities/user.entity';
 import type { VerificationToken } from '@domain/auth/verification-token';
-import type { TransactionContext } from '@application/common/contracts/unit-of-work.port';
+import type { TransactionContext } from '@application/common/contracts/unit-of-work.interface';
 
 export const REGISTER_USER_REPOSITORY = 'REGISTER_USER_REPOSITORY';
 

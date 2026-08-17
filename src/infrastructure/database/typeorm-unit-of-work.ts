@@ -4,7 +4,7 @@ import { DataSource, EntityManager } from 'typeorm';
 import type {
   TransactionContext,
   UnitOfWork,
-} from '@application/common/contracts/unit-of-work.port';
+} from '@application/common/contracts/unit-of-work.interface';
 
 @Injectable()
 export class TypeOrmUnitOfWork implements UnitOfWork {

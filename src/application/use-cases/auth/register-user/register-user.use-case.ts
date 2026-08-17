@@ -1,8 +1,8 @@
-import type { PasswordHasher } from '@application/common/contracts/password-hasher.port';
-import type { UnitOfWork } from '@application/common/contracts/unit-of-work.port';
-import type { Mailer } from '@application/common/contracts/mailer.port';
-import type { SignedUrl } from '@application/common/contracts/signed-url.port';
-import type { TokenGenerator } from '@application/common/contracts/token-generator.port';
+import type { PasswordHasher } from '@application/common/contracts/password-hasher.interface';
+import type { UnitOfWork } from '@application/common/contracts/unit-of-work.interface';
+import type { Mailer } from '@application/common/contracts/mailer.interface';
+import type { SignedUrl } from '@application/common/contracts/signed-url.interface';
+import type { TokenGenerator } from '@application/common/contracts/token-generator.interface';
 import { Email } from '@domain/value-objects/email.vo';
 import { Username } from '@domain/value-objects/username.vo';
 import { HashedPassword } from '@domain/value-objects/hashed-password.vo';

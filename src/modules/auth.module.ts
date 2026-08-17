@@ -12,20 +12,20 @@ import { HmacSignedUrl } from '@infrastructure/auth/signed-url';
 import {
   PASSWORD_HASHER,
   PasswordHasher,
-} from '@application/common/contracts/password-hasher.port';
+} from '@application/common/contracts/password-hasher.interface';
 import {
   UNIT_OF_WORK,
   UnitOfWork,
-} from '@application/common/contracts/unit-of-work.port';
-import { MAILER, Mailer } from '@application/common/contracts/mailer.port';
+} from '@application/common/contracts/unit-of-work.interface';
+import { MAILER, Mailer } from '@application/common/contracts/mailer.interface';
 import {
   SIGNED_URL,
   SignedUrl,
-} from '@application/common/contracts/signed-url.port';
+} from '@application/common/contracts/signed-url.interface';
 import {
   TOKEN_GENERATOR,
   TokenGenerator,
-} from '@application/common/contracts/token-generator.port';
+} from '@application/common/contracts/token-generator.interface';
 import {
   REGISTER_USER_REPOSITORY,
   RegisterUserRepository,
