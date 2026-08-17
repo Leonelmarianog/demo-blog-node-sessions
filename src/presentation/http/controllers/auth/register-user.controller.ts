@@ -13,8 +13,8 @@ import { RegisterUserUseCase } from '@application/use-cases/auth/register-user/r
 import { RegisterUserDto } from '@application/use-cases/auth/register-user/register-user.dto';
 import { RegisterUserRequest } from '@presentation/http/requests/register-user.request';
 import { ValidationException } from '@domain/exceptions/validation.exception';
-import { EmailAlreadyExistsException } from '@application/use-cases/auth/register-user/Exceptions/email-already-exists.exception';
-import { UsernameAlreadyExistsException } from '@application/use-cases/auth/register-user/Exceptions/username-already-exists.exception';
+import { EmailAlreadyExistsException } from '@application/use-cases/auth/register-user/exceptions/email-already-exists.exception';
+import { UsernameAlreadyExistsException } from '@application/use-cases/auth/register-user/exceptions/username-already-exists.exception';
 
 const baseModel = () => ({
   appTitle: 'Demo Blog',

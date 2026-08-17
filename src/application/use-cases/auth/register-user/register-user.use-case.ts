@@ -12,8 +12,8 @@ import { ValidationException } from '@domain/exceptions/validation.exception';
 import { RegisterUserDto } from './register-user.dto';
 import { RegisterUserResult } from './register-user.result';
 import type { RegisterUserRepository } from './register-user.repository.interface';
-import { EmailAlreadyExistsException } from './Exceptions/email-already-exists.exception';
-import { UsernameAlreadyExistsException } from './Exceptions/username-already-exists.exception';
+import { EmailAlreadyExistsException } from './exceptions/email-already-exists.exception';
+import { UsernameAlreadyExistsException } from './exceptions/username-already-exists.exception';
 
 export class RegisterUserUseCase {
   constructor(
