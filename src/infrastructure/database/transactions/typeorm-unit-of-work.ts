@@ -1,20 +1,16 @@
 import { InjectDataSource } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { DataSource, EntityManager } from 'typeorm';
-import type {
-  TransactionContext,
-  UnitOfWork,
-} from '@application/contracts/unit-of-work.interface';
+import { txStorage } from '@infrastructure/database/transactions/transaction-context.storage';
+import type { UnitOfWork } from '@application/contracts/unit-of-work.interface';
 
 @Injectable()
 export class TypeOrmUnitOfWork implements UnitOfWork {
   constructor(@InjectDataSource() private readonly dataSource: DataSource) {}
 
-  public async execute<T>(
-    work: (tx: TransactionContext) => Promise<T>,
-  ): Promise<T> {
+  public async execute<T>(work: () => Promise<T>): Promise<T> {
     return this.dataSource.transaction(async (manager: EntityManager) =>
-      work(manager as unknown as TransactionContext),
+      txStorage.run(manager, work),
     );
   }
 }

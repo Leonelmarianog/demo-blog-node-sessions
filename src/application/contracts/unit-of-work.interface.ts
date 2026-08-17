@@ -1,11 +1,14 @@
 /**
- * Opaque marker for the active database transaction.
- * The application layer declares it empty so it imports no ORM type.
- * The TypeOrmUnitOfWork casts it to a TypeORM EntityManager.
+ * A Unit of Work runs a set of writes as one atomic operation.
+ *
+ * It keeps multistep writes atomic. The writes all commit together. If any
+ * step throws, they all roll back.
  */
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type -- opaque marker; ORM casts it to EntityManager
-export interface TransactionContext {}
-
 export abstract class UnitOfWork {
-  abstract execute<T>(work: (tx: TransactionContext) => Promise<T>): Promise<T>;
+  /**
+   * Runs the given work inside a transaction and returns its result.
+   * Repository calls inside the work join this transaction. If the work
+   * throws, the transaction rolls back.
+   */
+  abstract execute<T>(work: () => Promise<T>): Promise<T>;
 }

@@ -5,7 +5,7 @@ import { UserEntity } from '@infrastructure/database/entities/user.entity';
 import { VerificationTokenEntity } from '@infrastructure/database/entities/verification-token.entity';
 import { TypeOrmRegisterUserRepository } from '@infrastructure/database/repositories/typeorm-register-user.repository';
 import { Argon2PasswordHasher } from '@infrastructure/auth/argon2-password-hasher';
-import { TypeOrmUnitOfWork } from '@infrastructure/database/typeorm-unit-of-work';
+import { TypeOrmUnitOfWork } from '@infrastructure/database/transactions/typeorm-unit-of-work';
 import { ConsoleMailer } from '@infrastructure/mail/console-mailer';
 import { UuidTokenGenerator } from '@infrastructure/auth/token-generator';
 import { HmacSignedUrl } from '@infrastructure/auth/signed-url';

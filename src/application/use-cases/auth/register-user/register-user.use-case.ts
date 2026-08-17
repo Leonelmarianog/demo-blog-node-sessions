@@ -41,12 +41,12 @@ export class RegisterUserUseCase {
     const email = Email.create(dto.email);
     const username = Username.create(dto.username);
 
-    const link = await this.unitOfWork.execute(async (tx) => {
-      if (await this.users.existsByEmail(email.value, tx)) {
+    const link = await this.unitOfWork.execute(async () => {
+      if (await this.users.existsByEmail(email.value)) {
         throw new EmailAlreadyExistsException();
       }
 
-      if (await this.users.existsByUsername(username.value, tx)) {
+      if (await this.users.existsByUsername(username.value)) {
         throw new UsernameAlreadyExistsException();
       }
 
