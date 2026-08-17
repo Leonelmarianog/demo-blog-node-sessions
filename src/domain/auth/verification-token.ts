@@ -5,6 +5,7 @@ export class VerificationToken {
     private readonly _expiresAt: Date,
   ) {}
 
+  /** Builds a new verification token that expires after the given time to live. */
   public static create(
     token: string,
     userId: string,
@@ -14,6 +15,7 @@ export class VerificationToken {
     return new VerificationToken(token, userId, expiresAt);
   }
 
+  /** Rebuilds a verification token from stored data. */
   public static from(
     token: string,
     userId: string,
@@ -34,10 +36,12 @@ export class VerificationToken {
     return this._expiresAt;
   }
 
+  /** Returns whether the token is past its expiry time. */
   public isExpired(): boolean {
     return this._expiresAt.getTime() <= Date.now();
   }
 
+  /** Returns whether the token is still valid (not expired). */
   public isValid(): boolean {
     return !this.isExpired();
   }

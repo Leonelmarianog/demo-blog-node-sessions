@@ -3,6 +3,7 @@ import { DomainValidationException } from '../exceptions/domain-validation.excep
 export class Username {
   private constructor(private readonly _value: string) {}
 
+  /** Validates the username and returns an error string, or null if it is valid. */
   public static validate(username: string): string | null {
     const value = (username ?? '').trim();
 
@@ -29,6 +30,7 @@ export class Username {
     return null;
   }
 
+  /** Builds a Username from the given value. The value is trimmed. Throws if the value is invalid. */
   public static create(username: string): Username {
     const error = Username.validate(username);
 
@@ -39,6 +41,7 @@ export class Username {
     return new Username(username.trim());
   }
 
+  /** Rebuilds a Username from stored data, without validation. */
   public static from(username: string): Username {
     return new Username(username);
   }

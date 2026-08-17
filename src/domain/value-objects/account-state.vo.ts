@@ -8,6 +8,7 @@ export enum AccountStateValue {
 export class AccountState {
   private constructor(private _value: AccountStateValue) {}
 
+  /** Rebuilds an account state from its stored string value. */
   public static from(value: string): AccountState {
     const state = Object.values(AccountStateValue).find(
       (v) => v === (value as AccountStateValue),
@@ -20,6 +21,7 @@ export class AccountState {
     return new AccountState(state);
   }
 
+  /** Returns a new unverified account state. */
   public static unverified(): AccountState {
     return new AccountState(AccountStateValue.Unverified);
   }
@@ -28,6 +30,7 @@ export class AccountState {
     return this._value;
   }
 
+  /** Activates the account. A suspended account cannot be activated. */
   public activate(): void {
     if (this._value === AccountStateValue.Suspended) {
       throw new Error('A suspended account cannot be activated by the user.');
@@ -35,14 +38,17 @@ export class AccountState {
     this._value = AccountStateValue.Active;
   }
 
+  /** Suspends the account. */
   public suspend(): void {
     this._value = AccountStateValue.Suspended;
   }
 
+  /** Marks the account as self-deactivated by its owner. */
   public selfDeactivate(): void {
     this._value = AccountStateValue.SelfDeactivated;
   }
 
+  /** Reactivates a self-deactivated account. Throws otherwise. */
   public reactivate(): void {
     if (this._value !== AccountStateValue.SelfDeactivated) {
       throw new Error('Only a self-deactivated account can reactivate.');

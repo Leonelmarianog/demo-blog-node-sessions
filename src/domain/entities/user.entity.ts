@@ -54,6 +54,7 @@ export class User {
     return this._updatedAt;
   }
 
+  /** Validates the email, username, and password, and returns all errors in a {@link Notification}. */
   public static validate(
     email: string,
     username: string,
@@ -81,6 +82,7 @@ export class User {
     return notification;
   }
 
+  /** Builds a new unverified user from the given value objects. */
   public static create(
     email: Email,
     username: Username,
@@ -99,6 +101,7 @@ export class User {
     );
   }
 
+  /** Rebuilds a user from stored data. */
   public static reconstitute(
     id: string,
     email: string,
@@ -121,6 +124,7 @@ export class User {
     );
   }
 
+  /** Marks the email as verified and activates the account. */
   public markEmailAsVerified(): void {
     this._emailVerifiedAt = new Date();
     this._accountState.activate();

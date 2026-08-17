@@ -3,6 +3,7 @@ import { DomainValidationException } from '../exceptions/domain-validation.excep
 export class Email {
   private constructor(private readonly _value: string) {}
 
+  /** Validates the email format and returns an error string, or null if it is valid. */
   public static validate(email: string): string | null {
     const trimmed = (email ?? '').trim().toLowerCase();
 
@@ -17,6 +18,7 @@ export class Email {
     return null;
   }
 
+  /** Builds an Email from the given value. The value is trimmed and lowercased. Throws if the value is invalid. */
   public static create(email: string): Email {
     const error = Email.validate(email);
 
@@ -27,6 +29,7 @@ export class Email {
     return new Email(email.trim().toLowerCase());
   }
 
+  /** Rebuilds an Email from stored data, without validation. */
   public static from(email: string): Email {
     return new Email(email);
   }
@@ -35,6 +38,7 @@ export class Email {
     return this._value;
   }
 
+  /** Returns whether this email matches the other. */
   public equals(other: Email): boolean {
     return this._value === other.value;
   }

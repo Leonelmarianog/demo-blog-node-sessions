@@ -3,6 +3,7 @@ import { DomainValidationException } from '../exceptions/domain-validation.excep
 export class Password {
   private constructor(private readonly _value: string) {}
 
+  /** Validates the password and returns an error string, or null if it is valid. */
   public static validate(password: string): string | null {
     const value = password ?? '';
 
@@ -21,6 +22,7 @@ export class Password {
     return null;
   }
 
+  /** Builds a Password from the given value. Throws if the value is invalid. */
   public static create(password: string): Password {
     const error = Password.validate(password);
 

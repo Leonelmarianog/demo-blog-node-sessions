@@ -6,6 +6,7 @@ export interface ValidationError {
 export class Notification {
   private readonly _errors: ValidationError[] = [];
 
+  /** Records an error for the given field. */
   public addError(field: string, message: string): void {
     this._errors.push({ field, message });
   }
@@ -18,6 +19,7 @@ export class Notification {
     return this._errors.length > 0;
   }
 
+  /** Returns whether an error was recorded for the given field. */
   public includes(field: string): boolean {
     return this._errors.some((error) => error.field === field);
   }
