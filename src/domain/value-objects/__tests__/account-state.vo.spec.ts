@@ -1,4 +1,6 @@
 import { AccountState } from '../account-state.vo';
+import { UnknownAccountStateException } from '../../exceptions/unknown-account-state.exception';
+import { IllegalAccountStateTransitionException } from '../../exceptions/illegal-account-state-transition.exception';
 
 describe('AccountState', () => {
   it('from() reconstitutes each state', () => {
@@ -7,13 +9,21 @@ describe('AccountState', () => {
   });
 
   it('from() throws on an unknown state', () => {
-    expect(() => AccountState.from('banned')).toThrow();
+    expect(() => AccountState.from('banned')).toThrow(
+      UnknownAccountStateException,
+    );
   });
 
   it('activate() moves unverified to active', () => {
     const state = AccountState.from('unverified');
     state.activate();
     expect(state.value).toBe('active');
+  });
+
+  it('activate() throws when the account is suspended', () => {
+    expect(() => AccountState.from('suspended').activate()).toThrow(
+      IllegalAccountStateTransitionException,
+    );
   });
 
   it('suspend() moves active to suspended', () => {
@@ -29,7 +39,9 @@ describe('AccountState', () => {
   });
 
   it('reactivate() moves self-deactivated back to active but not suspended', () => {
-    expect(() => AccountState.from('suspended').reactivate()).toThrow();
+    expect(() => AccountState.from('suspended').reactivate()).toThrow(
+      IllegalAccountStateTransitionException,
+    );
     const state = AccountState.from('self-deactivated');
     state.reactivate();
     expect(state.value).toBe('active');

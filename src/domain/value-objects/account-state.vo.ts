@@ -1,3 +1,6 @@
+import { IllegalAccountStateTransitionException } from '../exceptions/illegal-account-state-transition.exception';
+import { UnknownAccountStateException } from '../exceptions/unknown-account-state.exception';
+
 export enum AccountStateValue {
   Unverified = 'unverified',
   Active = 'active',
@@ -15,7 +18,9 @@ export class AccountState {
     );
 
     if (!state) {
-      throw new Error(`Unknown account state: ${value}.`);
+      throw new UnknownAccountStateException(
+        `Unknown account state: ${value}.`,
+      );
     }
 
     return new AccountState(state);
@@ -33,7 +38,9 @@ export class AccountState {
   /** Activates the account. A suspended account cannot be activated. */
   public activate(): void {
     if (this._value === AccountStateValue.Suspended) {
-      throw new Error('A suspended account cannot be activated by the user.');
+      throw new IllegalAccountStateTransitionException(
+        'A suspended account cannot be activated by the user.',
+      );
     }
     this._value = AccountStateValue.Active;
   }
@@ -51,7 +58,9 @@ export class AccountState {
   /** Reactivates a self-deactivated account. Throws otherwise. */
   public reactivate(): void {
     if (this._value !== AccountStateValue.SelfDeactivated) {
-      throw new Error('Only a self-deactivated account can reactivate.');
+      throw new IllegalAccountStateTransitionException(
+        'Only a self-deactivated account can reactivate.',
+      );
     }
     this._value = AccountStateValue.Active;
   }
