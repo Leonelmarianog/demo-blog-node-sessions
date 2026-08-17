@@ -1,5 +1,5 @@
 import { hash, verify, Algorithm } from '@node-rs/argon2';
-import type { PasswordHasher } from '@application/common/contracts/password-hasher.interface';
+import type { PasswordHasher } from '@application/contracts/password-hasher.interface';
 
 export class Argon2PasswordHasher implements PasswordHasher {
   private readonly options = {

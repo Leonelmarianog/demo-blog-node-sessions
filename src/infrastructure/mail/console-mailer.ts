@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import type { Mailer } from '@application/common/contracts/mailer.interface';
+import type { Mailer } from '@application/contracts/mailer.interface';
 
 @Injectable()
 export class ConsoleMailer implements Mailer {

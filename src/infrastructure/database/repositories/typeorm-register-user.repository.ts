@@ -1,7 +1,7 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { EntityManager, ObjectLiteral, Repository } from 'typeorm';
-import type { TransactionContext } from '@application/common/contracts/unit-of-work.interface';
+import type { TransactionContext } from '@application/contracts/unit-of-work.interface';
 import type { User } from '@domain/entities/user.entity';
 import type { VerificationToken } from '@domain/auth/verification-token';
 import type { RegisterUserRepository } from '@application/use-cases/auth/register-user/register-user.repository.interface';

@@ -2,7 +2,7 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 import type {
   SignedUrl,
   SignedUrlResult,
-} from '@application/common/contracts/signed-url.interface';
+} from '@application/contracts/signed-url.interface';
 
 export class HmacSignedUrl implements SignedUrl {
   constructor(private readonly secret: string) {
