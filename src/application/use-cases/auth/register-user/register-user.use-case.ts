@@ -1,7 +1,7 @@
 import type { PasswordHasher } from '@application/contracts/password-hasher.interface';
 import type { UnitOfWork } from '@application/contracts/unit-of-work.interface';
 import type { Mailer } from '@application/contracts/mailer.interface';
-import type { SignedUrl } from '@application/contracts/signed-url.interface';
+import type { UrlSigner } from '@application/contracts/url-signer.interface';
 import type { TokenGenerator } from '@application/contracts/token-generator.interface';
 import { Email } from '@domain/value-objects/email.vo';
 import { Username } from '@domain/value-objects/username.vo';
@@ -21,7 +21,7 @@ export class RegisterUserUseCase {
     private readonly hasher: PasswordHasher,
     private readonly unitOfWork: UnitOfWork,
     private readonly mailer: Mailer,
-    private readonly signedUrl: SignedUrl,
+    private readonly urlSigner: UrlSigner,
     private readonly tokenGenerator: TokenGenerator,
     private readonly tokenTtlSeconds: number,
     private readonly appBaseUrl: string,
@@ -64,7 +64,7 @@ export class RegisterUserUseCase {
       await this.users.save(user, token);
 
       const verifyUrl = `/verify-email?token=${token.token}`;
-      return `${this.appBaseUrl}${this.signedUrl.sign(verifyUrl, this.tokenTtlSeconds)}`;
+      return `${this.appBaseUrl}${this.urlSigner.sign(verifyUrl, this.tokenTtlSeconds)}`;
     });
 
     await this.mailer.send(

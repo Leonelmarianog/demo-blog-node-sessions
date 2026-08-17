@@ -8,11 +8,11 @@ import { Argon2PasswordHasher } from '@infrastructure/auth/argon2-password-hashe
 import { TypeOrmUnitOfWork } from '@infrastructure/database/transactions/typeorm-unit-of-work';
 import { ConsoleMailer } from '@infrastructure/mail/console-mailer';
 import { UuidTokenGenerator } from '@infrastructure/auth/token-generator';
-import { HmacSignedUrl } from '@infrastructure/auth/signed-url';
+import { HmacUrlSigner } from '@infrastructure/auth/url-signer';
 import { PasswordHasher } from '@application/contracts/password-hasher.interface';
 import { UnitOfWork } from '@application/contracts/unit-of-work.interface';
 import { Mailer } from '@application/contracts/mailer.interface';
-import { SignedUrl } from '@application/contracts/signed-url.interface';
+import { UrlSigner } from '@application/contracts/url-signer.interface';
 import { TokenGenerator } from '@application/contracts/token-generator.interface';
 import { RegisterUserRepository } from '@application/use-cases/auth/register-user/register-user.repository.interface';
 import { RegisterUserUseCase } from '@application/use-cases/auth/register-user/register-user.use-case';
@@ -28,9 +28,9 @@ import { RegisterUserController } from '@presentation/http/controllers/auth/regi
     { provide: Mailer, useClass: ConsoleMailer },
     { provide: TokenGenerator, useClass: UuidTokenGenerator },
     {
-      provide: SignedUrl,
+      provide: UrlSigner,
       useFactory: (config: ConfigService) =>
-        new HmacSignedUrl(config.get<string>('SESSION_SECRET')!),
+        new HmacUrlSigner(config.get<string>('SESSION_SECRET')!),
       inject: [ConfigService],
     },
     {
@@ -44,7 +44,7 @@ import { RegisterUserController } from '@presentation/http/controllers/auth/regi
         hasher: PasswordHasher,
         uow: UnitOfWork,
         mailer: Mailer,
-        signedUrl: SignedUrl,
+        urlSigner: UrlSigner,
         tokenGenerator: TokenGenerator,
         config: ConfigService,
       ) =>
@@ -53,7 +53,7 @@ import { RegisterUserController } from '@presentation/http/controllers/auth/regi
           hasher,
           uow,
           mailer,
-          signedUrl,
+          urlSigner,
           tokenGenerator,
           config.get<number>('VERIFICATION_TOKEN_TTL_SECONDS')!,
           config.get<string>('APP_BASE_URL')!,
@@ -63,7 +63,7 @@ import { RegisterUserController } from '@presentation/http/controllers/auth/regi
         PasswordHasher,
         UnitOfWork,
         Mailer,
-        SignedUrl,
+        UrlSigner,
         TokenGenerator,
         ConfigService,
       ],

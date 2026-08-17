@@ -1,10 +1,10 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
 import type {
-  SignedUrl,
+  UrlSigner,
   SignedUrlResult,
-} from '@application/contracts/signed-url.interface';
+} from '@application/contracts/url-signer.interface';
 
-export class HmacSignedUrl implements SignedUrl {
+export class HmacUrlSigner implements UrlSigner {
   constructor(private readonly secret: string) {
     if (!secret || secret.length < 32) {
       throw new Error('The signed url secret must be at least 32 characters.');

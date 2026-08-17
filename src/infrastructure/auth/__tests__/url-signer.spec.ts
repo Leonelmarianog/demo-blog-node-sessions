@@ -1,7 +1,7 @@
-import { HmacSignedUrl } from '../signed-url';
+import { HmacUrlSigner } from '../url-signer';
 
-describe('HmacSignedUrl', () => {
-  const signer = new HmacSignedUrl('a-test-secret-of-at-least-32-characters!');
+describe('HmacUrlSigner', () => {
+  const signer = new HmacUrlSigner('a-test-secret-of-at-least-32-characters!');
 
   it('signs a URL and validates it', () => {
     const signed = signer.sign('/verify-email?token=abc', 3600);
