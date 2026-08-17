@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { Notification } from '../notification';
+import { Notification } from '../validation/notification';
 import { Email } from '../value-objects/email.vo';
 import { Username } from '../value-objects/username.vo';
 import { Password } from '../value-objects/password.vo';
