@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UnitOfWork } from '@application/contracts/unit-of-work.interface';
+import { TypeOrmUnitOfWork } from './transactions/typeorm-unit-of-work';
 
 @Module({
   imports: [
@@ -23,6 +25,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       }),
     }),
   ],
-  exports: [TypeOrmModule],
+  providers: [{ provide: UnitOfWork, useClass: TypeOrmUnitOfWork }],
+  exports: [TypeOrmModule, UnitOfWork],
 })
 export class DatabaseModule {}

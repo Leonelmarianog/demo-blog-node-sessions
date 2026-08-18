@@ -1,4 +1,4 @@
-import { HmacUrlSigner } from '../url-signer';
+import { HmacUrlSigner } from '../hmac-url-signer';
 
 describe('HmacUrlSigner', () => {
   const signer = new HmacUrlSigner('a-test-secret-of-at-least-32-characters!');

@@ -3,12 +3,12 @@ import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '@infrastructure/database/entities/user.entity';
 import { VerificationTokenEntity } from '@infrastructure/database/entities/verification-token.entity';
+import { DatabaseModule } from '@infrastructure/database/database.module';
 import { TypeOrmRegisterUserRepository } from '@infrastructure/database/repositories/typeorm-register-user.repository';
-import { Argon2Hasher } from '@infrastructure/auth/argon2-hasher';
-import { TypeOrmUnitOfWork } from '@infrastructure/database/transactions/typeorm-unit-of-work';
-import { ConsoleMailer } from '@infrastructure/mail/console-mailer';
-import { UuidTokenGenerator } from '@infrastructure/auth/token-generator';
-import { HmacUrlSigner } from '@infrastructure/auth/url-signer';
+import { HasherModule } from '@infrastructure/hasher/hasher.module';
+import { UrlSignerModule } from '@infrastructure/url-signer/url-signer.module';
+import { TokenGeneratorModule } from '@infrastructure/token-generator/token-generator.module';
+import { MailerModule } from '@infrastructure/mail/mailer.module';
 import { Hasher } from '@application/contracts/hasher.interface';
 import { UnitOfWork } from '@application/contracts/unit-of-work.interface';
 import { Mailer } from '@application/contracts/mailer.interface';
@@ -20,19 +20,16 @@ import { AuthController } from '@presentation/http/controllers/auth/auth.control
 import { RegisterUserController } from '@presentation/http/controllers/auth/register-user.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity, VerificationTokenEntity])],
+  imports: [
+    TypeOrmModule.forFeature([UserEntity, VerificationTokenEntity]),
+    DatabaseModule,
+    HasherModule,
+    UrlSignerModule,
+    TokenGeneratorModule,
+    MailerModule,
+  ],
   controllers: [AuthController, RegisterUserController],
   providers: [
-    { provide: Hasher, useClass: Argon2Hasher },
-    { provide: UnitOfWork, useClass: TypeOrmUnitOfWork },
-    { provide: Mailer, useClass: ConsoleMailer },
-    { provide: TokenGenerator, useClass: UuidTokenGenerator },
-    {
-      provide: UrlSigner,
-      useFactory: (config: ConfigService) =>
-        new HmacUrlSigner(config.get<string>('SESSION_SECRET')!),
-      inject: [ConfigService],
-    },
     {
       provide: RegisterUserRepository,
       useClass: TypeOrmRegisterUserRepository,
