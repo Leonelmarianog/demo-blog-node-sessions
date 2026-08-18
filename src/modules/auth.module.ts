@@ -4,12 +4,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '@infrastructure/database/entities/user.entity';
 import { VerificationTokenEntity } from '@infrastructure/database/entities/verification-token.entity';
 import { TypeOrmRegisterUserRepository } from '@infrastructure/database/repositories/typeorm-register-user.repository';
-import { Argon2PasswordHasher } from '@infrastructure/auth/argon2-password-hasher';
+import { Argon2Hasher } from '@infrastructure/auth/argon2-hasher';
 import { TypeOrmUnitOfWork } from '@infrastructure/database/transactions/typeorm-unit-of-work';
 import { ConsoleMailer } from '@infrastructure/mail/console-mailer';
 import { UuidTokenGenerator } from '@infrastructure/auth/token-generator';
 import { HmacUrlSigner } from '@infrastructure/auth/url-signer';
-import { PasswordHasher } from '@application/contracts/password-hasher.interface';
+import { Hasher } from '@application/contracts/hasher.interface';
 import { UnitOfWork } from '@application/contracts/unit-of-work.interface';
 import { Mailer } from '@application/contracts/mailer.interface';
 import { UrlSigner } from '@application/contracts/url-signer.interface';
@@ -23,7 +23,7 @@ import { RegisterUserController } from '@presentation/http/controllers/auth/regi
   imports: [TypeOrmModule.forFeature([UserEntity, VerificationTokenEntity])],
   controllers: [AuthController, RegisterUserController],
   providers: [
-    { provide: PasswordHasher, useClass: Argon2PasswordHasher },
+    { provide: Hasher, useClass: Argon2Hasher },
     { provide: UnitOfWork, useClass: TypeOrmUnitOfWork },
     { provide: Mailer, useClass: ConsoleMailer },
     { provide: TokenGenerator, useClass: UuidTokenGenerator },
@@ -41,7 +41,7 @@ import { RegisterUserController } from '@presentation/http/controllers/auth/regi
       provide: RegisterUserUseCase,
       useFactory: (
         users: RegisterUserRepository,
-        hasher: PasswordHasher,
+        hasher: Hasher,
         uow: UnitOfWork,
         mailer: Mailer,
         urlSigner: UrlSigner,
@@ -60,7 +60,7 @@ import { RegisterUserController } from '@presentation/http/controllers/auth/regi
         ),
       inject: [
         RegisterUserRepository,
-        PasswordHasher,
+        Hasher,
         UnitOfWork,
         Mailer,
         UrlSigner,

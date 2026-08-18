@@ -1,7 +1,7 @@
-import { Argon2PasswordHasher } from '../argon2-password-hasher';
+import { Argon2Hasher } from '../argon2-hasher';
 
-describe('Argon2PasswordHasher', () => {
-  const hasher = new Argon2PasswordHasher();
+describe('Argon2Hasher', () => {
+  const hasher = new Argon2Hasher();
 
   it('hashes a password and verifies it', async () => {
     const hash = await hasher.hash('Password1');

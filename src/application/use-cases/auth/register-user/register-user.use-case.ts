@@ -1,4 +1,4 @@
-import type { PasswordHasher } from '@application/contracts/password-hasher.interface';
+import type { Hasher } from '@application/contracts/hasher.interface';
 import type { UnitOfWork } from '@application/contracts/unit-of-work.interface';
 import type { Mailer } from '@application/contracts/mailer.interface';
 import type { UrlSigner } from '@application/contracts/url-signer.interface';
@@ -19,7 +19,7 @@ import { UsernameAlreadyExistsException } from './exceptions/username-already-ex
 export class RegisterUserUseCase {
   constructor(
     private readonly users: RegisterUserRepository,
-    private readonly hasher: PasswordHasher,
+    private readonly hasher: Hasher,
     private readonly unitOfWork: UnitOfWork,
     private readonly mailer: Mailer,
     private readonly urlSigner: UrlSigner,
