@@ -8,7 +8,7 @@ import { Username } from '@domain/value-objects/username.vo';
 import { HashedPassword } from '@domain/value-objects/hashed-password.vo';
 import { Password } from '@domain/value-objects/password.vo';
 import { User } from '@domain/entities/user.entity';
-import { VerificationToken } from '@domain/auth/verification-token';
+import { VerificationToken } from '@application/entities/verification-token.entity';
 import { ValidationException } from '@domain/exceptions/validation.exception';
 import { RegisterUserDto } from './register-user.dto';
 import { RegisterUserResult } from './register-user.result';

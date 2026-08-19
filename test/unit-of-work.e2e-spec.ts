@@ -10,7 +10,7 @@ import { Email } from '@domain/value-objects/email.vo';
 import { Username } from '@domain/value-objects/username.vo';
 import { HashedPassword } from '@domain/value-objects/hashed-password.vo';
 import { User } from '@domain/entities/user.entity';
-import { VerificationToken } from '@domain/auth/verification-token';
+import { VerificationToken } from '@application/entities/verification-token.entity';
 
 describe('Unit of Work (e2e)', () => {
   let app: INestApplication;

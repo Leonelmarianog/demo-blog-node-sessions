@@ -1,5 +1,5 @@
 import type { User } from '@domain/entities/user.entity';
-import type { VerificationToken } from '@domain/auth/verification-token';
+import type { VerificationToken } from '@application/entities/verification-token.entity';
 
 export abstract class RegisterUserRepository {
   /** Returns whether a user with the given email already exists. */

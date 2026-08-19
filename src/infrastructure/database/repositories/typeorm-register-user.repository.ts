@@ -2,7 +2,7 @@ import { InjectDataSource } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { DataSource, ObjectLiteral, Repository } from 'typeorm';
 import type { User } from '@domain/entities/user.entity';
-import type { VerificationToken } from '@domain/auth/verification-token';
+import type { VerificationToken } from '@application/entities/verification-token.entity';
 import type { RegisterUserRepository } from '@application/use-cases/auth/register-user/register-user.repository.interface';
 import { UserEntity } from '@infrastructure/database/entities/user.entity';
 import { VerificationTokenEntity } from '@infrastructure/database/entities/verification-token.entity';
