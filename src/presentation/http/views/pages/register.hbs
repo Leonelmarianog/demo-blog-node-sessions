@@ -8,24 +8,29 @@
 
   <form class="space-y-5" action="/register" method="post">
     <div>
-      <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-      <input id="name" name="name" type="text" autocomplete="name" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
+      <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+      <input id="username" name="username" type="text" autocomplete="username" value="{{values.username}}" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
+      <p class="mt-1 text-xs text-gray-500">3 to 50 characters. Lowercase letters, digits, and hyphens only.</p>
+      {{#if errors.username}}<p class="mt-1 text-xs text-red-600">{{errors.username}}</p>{{/if}}
     </div>
 
     <div>
       <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-      <input id="email" name="email" type="email" autocomplete="email" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
+      <input id="email" name="email" type="email" autocomplete="email" value="{{values.email}}" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
+      {{#if errors.email}}<p class="mt-1 text-xs text-red-600">{{errors.email}}</p>{{/if}}
     </div>
 
     <div>
       <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
       <input id="password" name="password" type="password" autocomplete="new-password" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
-      <p class="mt-1 text-xs text-gray-500">At least eight characters.</p>
+      <p class="mt-1 text-xs text-gray-500">8 to 128 characters, with an uppercase letter, a lowercase letter, and a digit.</p>
+      {{#if errors.password}}<p class="mt-1 text-xs text-red-600">{{errors.password}}</p>{{/if}}
     </div>
 
     <div>
       <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm password</label>
       <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500" />
+      {{#if errors.confirmPassword}}<p class="mt-1 text-xs text-red-600">{{errors.confirmPassword}}</p>{{/if}}
     </div>
 
     <button type="submit" class="cursor-pointer w-full rounded-md bg-brand-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-700">Create account</button>

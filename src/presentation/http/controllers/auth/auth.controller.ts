@@ -13,12 +13,6 @@ export class AuthController {
     return { appTitle: 'Demo Blog', year: new Date().getFullYear() };
   }
 
-  @Get('register')
-  @Render('pages/register')
-  register(): AuthPageViewModel {
-    return { appTitle: 'Demo Blog', year: new Date().getFullYear() };
-  }
-
   @Get('forgot-password')
   @Render('pages/forgot-password')
   forgotPassword(): AuthPageViewModel {

@@ -70,3 +70,8 @@ jobs:
           DB_PASSWORD: postgres
           DB_NAME: demo_blog_test
           DB_TEST_NAME: demo_blog_test
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          SESSION_SECRET: ci-session-secret-please-use-32-or-more-chars
+          APP_BASE_URL: http://localhost:3000
+          VERIFICATION_TOKEN_TTL_SECONDS: 3600
