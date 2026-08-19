@@ -130,4 +130,10 @@ export class User {
     this._accountState.activate();
     this._updatedAt = new Date();
   }
+
+  /** Reactivates a self-deactivated account. Throws otherwise. */
+  public reactivate(): void {
+    this._accountState.reactivate();
+    this._updatedAt = new Date();
+  }
 }
