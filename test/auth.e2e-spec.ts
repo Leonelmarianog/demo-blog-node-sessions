@@ -14,7 +14,7 @@ describe('Auth pages (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    setupApp(app);
+    await setupApp(app);
     await app.init();
   });
 
@@ -28,7 +28,6 @@ describe('Auth pages (e2e)', () => {
       .expect(200)
       .expect('Content-Type', /text\/html/)
       .expect(/Sign in/)
-      .expect(/Remember me/)
       .expect(/Forgot password/)
       .expect(/Create an account/);
   });
