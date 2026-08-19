@@ -16,8 +16,12 @@ import { UrlSigner } from '@application/contracts/url-signer.interface';
 import { TokenGenerator } from '@application/contracts/token-generator.interface';
 import { RegisterUserRepository } from '@application/use-cases/auth/register-user/register-user.repository.interface';
 import { RegisterUserUseCase } from '@application/use-cases/auth/register-user/register-user.use-case';
+import { VerifyEmailRepository } from '@application/use-cases/auth/verify-email/verify-email.repository.interface';
+import { VerifyEmailUseCase } from '@application/use-cases/auth/verify-email/verify-email.use-case';
+import { TypeOrmVerifyEmailRepository } from '@infrastructure/database/repositories/typeorm-verify-email.repository';
 import { AuthController } from '@presentation/http/controllers/auth/auth.controller';
 import { RegisterUserController } from '@presentation/http/controllers/auth/register-user.controller';
+import { VerifyEmailController } from '@presentation/http/controllers/auth/verify-email.controller';
 
 @Module({
   imports: [
@@ -28,11 +32,15 @@ import { RegisterUserController } from '@presentation/http/controllers/auth/regi
     TokenGeneratorModule,
     MailerModule,
   ],
-  controllers: [AuthController, RegisterUserController],
+  controllers: [AuthController, RegisterUserController, VerifyEmailController],
   providers: [
     {
       provide: RegisterUserRepository,
       useClass: TypeOrmRegisterUserRepository,
+    },
+    {
+      provide: VerifyEmailRepository,
+      useClass: TypeOrmVerifyEmailRepository,
     },
     {
       provide: RegisterUserUseCase,
@@ -64,6 +72,12 @@ import { RegisterUserController } from '@presentation/http/controllers/auth/regi
         TokenGenerator,
         ConfigService,
       ],
+    },
+    {
+      provide: VerifyEmailUseCase,
+      useFactory: (tokens: VerifyEmailRepository, uow: UnitOfWork) =>
+        new VerifyEmailUseCase(tokens, uow),
+      inject: [VerifyEmailRepository, UnitOfWork],
     },
   ],
 })
