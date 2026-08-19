@@ -19,9 +19,13 @@ import { RegisterUserUseCase } from '@application/use-cases/auth/register-user/r
 import { VerifyEmailRepository } from '@application/use-cases/auth/verify-email/verify-email.repository.interface';
 import { VerifyEmailUseCase } from '@application/use-cases/auth/verify-email/verify-email.use-case';
 import { TypeOrmVerifyEmailRepository } from '@infrastructure/database/repositories/typeorm-verify-email.repository';
+import { TypeOrmLoginUserRepository } from '@infrastructure/database/repositories/typeorm-login-user.repository';
+import { LoginUserRepository } from '@application/use-cases/auth/login/login.repository.interface';
+import { LoginUseCase } from '@application/use-cases/auth/login/login.use-case';
 import { AuthController } from '@presentation/http/controllers/auth/auth.controller';
 import { RegisterUserController } from '@presentation/http/controllers/auth/register-user.controller';
 import { VerifyEmailController } from '@presentation/http/controllers/auth/verify-email.controller';
+import { LoginUserController } from '@presentation/http/controllers/auth/login-user.controller';
 
 @Module({
   imports: [
@@ -32,7 +36,12 @@ import { VerifyEmailController } from '@presentation/http/controllers/auth/verif
     TokenGeneratorModule,
     MailerModule,
   ],
-  controllers: [AuthController, RegisterUserController, VerifyEmailController],
+  controllers: [
+    AuthController,
+    RegisterUserController,
+    VerifyEmailController,
+    LoginUserController,
+  ],
   providers: [
     {
       provide: RegisterUserRepository,
@@ -41,6 +50,10 @@ import { VerifyEmailController } from '@presentation/http/controllers/auth/verif
     {
       provide: VerifyEmailRepository,
       useClass: TypeOrmVerifyEmailRepository,
+    },
+    {
+      provide: LoginUserRepository,
+      useClass: TypeOrmLoginUserRepository,
     },
     {
       provide: RegisterUserUseCase,
@@ -78,6 +91,15 @@ import { VerifyEmailController } from '@presentation/http/controllers/auth/verif
       useFactory: (tokens: VerifyEmailRepository, uow: UnitOfWork) =>
         new VerifyEmailUseCase(tokens, uow),
       inject: [VerifyEmailRepository, UnitOfWork],
+    },
+    {
+      provide: LoginUseCase,
+      useFactory: (
+        users: LoginUserRepository,
+        hasher: Hasher,
+        uow: UnitOfWork,
+      ) => new LoginUseCase(users, hasher, uow),
+      inject: [LoginUserRepository, Hasher, UnitOfWork],
     },
   ],
 })
