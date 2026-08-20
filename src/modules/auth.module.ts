@@ -27,10 +27,19 @@ import { RegisterUserController } from '@presentation/http/controllers/auth/regi
 import { VerifyEmailController } from '@presentation/http/controllers/auth/verify-email.controller';
 import { LoginUserController } from '@presentation/http/controllers/auth/login-user.controller';
 import { LogoutController } from '@presentation/http/controllers/auth/logout.controller';
+import { PasswordResetTokenEntity } from '@infrastructure/database/entities/password-reset-token.entity';
+import { TypeOrmRequestPasswordResetRepository } from '@infrastructure/database/repositories/typeorm-request-password-reset.repository';
+import { RequestPasswordResetRepository } from '@application/use-cases/auth/request-password-reset/request-password-reset.repository.interface';
+import { RequestPasswordResetUseCase } from '@application/use-cases/auth/request-password-reset/request-password-reset.use-case';
+import { ForgotPasswordController } from '@presentation/http/controllers/auth/forgot-password.controller';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserEntity, VerificationTokenEntity]),
+    TypeOrmModule.forFeature([
+      UserEntity,
+      VerificationTokenEntity,
+      PasswordResetTokenEntity,
+    ]),
     DatabaseModule,
     HasherModule,
     UrlSignerModule,
@@ -43,6 +52,7 @@ import { LogoutController } from '@presentation/http/controllers/auth/logout.con
     VerifyEmailController,
     LoginUserController,
     LogoutController,
+    ForgotPasswordController,
   ],
   providers: [
     {
@@ -102,6 +112,38 @@ import { LogoutController } from '@presentation/http/controllers/auth/logout.con
         uow: UnitOfWork,
       ) => new LoginUseCase(users, hasher, uow),
       inject: [LoginUserRepository, Hasher, UnitOfWork],
+    },
+    {
+      provide: RequestPasswordResetRepository,
+      useClass: TypeOrmRequestPasswordResetRepository,
+    },
+    {
+      provide: RequestPasswordResetUseCase,
+      useFactory: (
+        users: RequestPasswordResetRepository,
+        mailer: Mailer,
+        urlSigner: UrlSigner,
+        tokenGenerator: TokenGenerator,
+        uow: UnitOfWork,
+        config: ConfigService,
+      ) =>
+        new RequestPasswordResetUseCase(
+          users,
+          mailer,
+          urlSigner,
+          tokenGenerator,
+          uow,
+          config.get<number>('PASSWORD_RESET_TOKEN_TTL_SECONDS')!,
+          config.get<string>('APP_BASE_URL')!,
+        ),
+      inject: [
+        RequestPasswordResetRepository,
+        Mailer,
+        UrlSigner,
+        TokenGenerator,
+        UnitOfWork,
+        ConfigService,
+      ],
     },
   ],
 })
