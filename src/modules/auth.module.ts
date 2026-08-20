@@ -32,6 +32,10 @@ import { TypeOrmRequestPasswordResetRepository } from '@infrastructure/database/
 import { RequestPasswordResetRepository } from '@application/use-cases/auth/request-password-reset/request-password-reset.repository.interface';
 import { RequestPasswordResetUseCase } from '@application/use-cases/auth/request-password-reset/request-password-reset.use-case';
 import { ForgotPasswordController } from '@presentation/http/controllers/auth/forgot-password.controller';
+import { TypeOrmResetPasswordRepository } from '@infrastructure/database/repositories/typeorm-reset-password.repository';
+import { ResetPasswordRepository } from '@application/use-cases/auth/reset-password/reset-password.repository.interface';
+import { ResetPasswordUseCase } from '@application/use-cases/auth/reset-password/reset-password.use-case';
+import { ResetPasswordController } from '@presentation/http/controllers/auth/reset-password.controller';
 
 @Module({
   imports: [
@@ -53,6 +57,7 @@ import { ForgotPasswordController } from '@presentation/http/controllers/auth/fo
     LoginUserController,
     LogoutController,
     ForgotPasswordController,
+    ResetPasswordController,
   ],
   providers: [
     {
@@ -144,6 +149,19 @@ import { ForgotPasswordController } from '@presentation/http/controllers/auth/fo
         UnitOfWork,
         ConfigService,
       ],
+    },
+    {
+      provide: ResetPasswordRepository,
+      useClass: TypeOrmResetPasswordRepository,
+    },
+    {
+      provide: ResetPasswordUseCase,
+      useFactory: (
+        tokens: ResetPasswordRepository,
+        hasher: Hasher,
+        uow: UnitOfWork,
+      ) => new ResetPasswordUseCase(tokens, hasher, uow),
+      inject: [ResetPasswordRepository, Hasher, UnitOfWork],
     },
   ],
 })

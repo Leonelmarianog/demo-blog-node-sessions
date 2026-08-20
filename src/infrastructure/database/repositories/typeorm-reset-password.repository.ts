@@ -1,25 +1,40 @@
 import { InjectDataSource } from '@nestjs/typeorm';
 import { Injectable } from '@nestjs/common';
 import { DataSource, ObjectLiteral, Repository } from 'typeorm';
+import type { ResetPasswordRepository } from '@application/use-cases/auth/reset-password/reset-password.repository.interface';
+import { PasswordResetToken } from '@application/entities/password-reset-token.entity';
+import type { HashedPassword } from '@domain/value-objects/hashed-password.vo';
 import { User } from '@domain/entities/user.entity';
-import type { RequestPasswordResetRepository } from '@application/use-cases/auth/request-password-reset/request-password-reset.repository.interface';
-import type { PasswordResetToken } from '@application/entities/password-reset-token.entity';
 import { UserEntity } from '@infrastructure/database/entities/user.entity';
 import { PasswordResetTokenEntity } from '@infrastructure/database/entities/password-reset-token.entity';
 import { getCurrentManager } from '@infrastructure/database/transactions/transaction-context.storage';
 
 @Injectable()
-export class TypeOrmRequestPasswordResetRepository implements RequestPasswordResetRepository {
+export class TypeOrmResetPasswordRepository implements ResetPasswordRepository {
   constructor(@InjectDataSource() private readonly dataSource: DataSource) {}
 
-  public async findByEmail(email: string): Promise<User | null> {
-    const row = await this.repositoryFor(UserEntity).findOneBy({ email });
+  public async findByToken(token: string): Promise<PasswordResetToken | null> {
+    const row = await this.repositoryFor(PasswordResetTokenEntity).findOneBy({
+      token,
+    });
 
     if (!row) {
       return null;
     }
 
-    return User.reconstitute(
+    return PasswordResetToken.from(row.token, row.userId, row.expiresAt);
+  }
+
+  public async applyReset(
+    token: string,
+    userId: string,
+    newPasswordHash: HashedPassword,
+  ): Promise<void> {
+    const userRepo = this.repositoryFor(UserEntity);
+    const tokenRepo = this.repositoryFor(PasswordResetTokenEntity);
+
+    const row = await userRepo.findOneByOrFail({ id: userId });
+    const user = User.reconstitute(
       row.id,
       row.email,
       row.username,
@@ -29,18 +44,16 @@ export class TypeOrmRequestPasswordResetRepository implements RequestPasswordRes
       row.createdAt,
       row.updatedAt,
     );
-  }
+    user.changePassword(newPasswordHash);
 
-  public async save(token: PasswordResetToken): Promise<void> {
-    await this.repositoryFor(PasswordResetTokenEntity).save({
-      token: token.token,
-      userId: token.userId,
-      expiresAt: token.expiresAt,
-    });
-  }
-
-  public async deleteByUserId(userId: string): Promise<void> {
-    await this.repositoryFor(PasswordResetTokenEntity).delete({ userId });
+    await userRepo.update(
+      { id: user.id },
+      {
+        passwordHash: user.passwordHash,
+        updatedAt: user.updatedAt,
+      },
+    );
+    await tokenRepo.delete({ token });
   }
 
   /**

@@ -73,6 +73,8 @@ export class RequestPasswordResetUseCase {
   }
 
   private async issueReset(user: User): Promise<string> {
+    await this.users.deleteByUserId(user.id);
+
     const token = PasswordResetToken.create(
       this.tokenGenerator.generate(),
       user.id,

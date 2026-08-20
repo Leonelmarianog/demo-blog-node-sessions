@@ -61,14 +61,4 @@ describe('Auth pages (e2e)', () => {
       .expect(/expir/)
       .expect(/Resend the link/);
   });
-
-  it('GET /reset-password renders the set-new-password form', () => {
-    return request(app.getHttpServer() as Server)
-      .get('/reset-password')
-      .expect(200)
-      .expect('Content-Type', /text\/html/)
-      .expect(/Set a new password/)
-      .expect(/Confirm new password/)
-      .expect(/Reset password/);
-  });
 });

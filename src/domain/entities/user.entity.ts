@@ -136,4 +136,10 @@ export class User {
     this._accountState.reactivate();
     this._updatedAt = new Date();
   }
+
+  /** Sets a new password hash and updates the timestamp. */
+  public changePassword(passwordHash: HashedPassword): void {
+    this._passwordHash = passwordHash;
+    this._updatedAt = new Date();
+  }
 }
