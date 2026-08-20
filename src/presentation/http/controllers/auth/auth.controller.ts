@@ -7,12 +7,6 @@ interface AuthPageViewModel {
 
 @Controller()
 export class AuthController {
-  @Get('login')
-  @Render('pages/login')
-  login(): AuthPageViewModel {
-    return { appTitle: 'Demo Blog', year: new Date().getFullYear() };
-  }
-
   @Get('forgot-password')
   @Render('pages/forgot-password')
   forgotPassword(): AuthPageViewModel {
