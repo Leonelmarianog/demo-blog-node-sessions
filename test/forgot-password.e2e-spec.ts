@@ -70,6 +70,22 @@ describe('Forgot password (e2e)', () => {
     expect(await resetTokenCountFor('morgan@example.com')).toBe(1);
   });
 
+  it('keeps only the last token when the reset is requested twice', async () => {
+    await seedUser('morgan@example.com', 'active');
+
+    await request(app.getHttpServer() as Server)
+      .post('/forgot-password')
+      .send({ email: 'morgan@example.com' })
+      .expect(302);
+
+    await request(app.getHttpServer() as Server)
+      .post('/forgot-password')
+      .send({ email: 'morgan@example.com' })
+      .expect(302);
+
+    expect(await resetTokenCountFor('morgan@example.com')).toBe(1);
+  });
+
   it('sends nothing for a non-existent email', async () => {
     await request(app.getHttpServer() as Server)
       .post('/forgot-password')

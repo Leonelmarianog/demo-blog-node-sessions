@@ -23,12 +23,13 @@ A user who forgot their password asks for a reset link. The system stores a rese
 4. The use case loads the user by email.
 5. The use case checks that the account is active or self-deactivated.
 6. The use case starts one transaction.
-7. The use case generates the reset token.
-8. The use case saves the token.
-9. The use case signs the reset URL.
-10. The transaction commits.
-11. The use case sends the reset email.
-12. The controller redirects the client to the sent page.
+7. The use case deletes the prior reset tokens for the user.
+8. The use case generates the reset token.
+9. The use case saves the token.
+10. The use case signs the reset URL.
+11. The transaction commits.
+12. The use case sends the reset email.
+13. The controller redirects the client to the sent page.
 
 ```mermaid
 sequenceDiagram
@@ -38,6 +39,7 @@ sequenceDiagram
     UseCase->>Repository: findByEmail(email)
     UseCase->>UseCase: check account state
     UseCase->>UnitOfWork: execute(work)
+    UnitOfWork->>Repository: deleteByUserId(userId)
     UnitOfWork->>TokenGenerator: generate()
     UnitOfWork->>Repository: save(token)
     UnitOfWork->>UrlSigner: sign(resetUrl)
@@ -75,3 +77,4 @@ sequenceDiagram
 - BR-2: A non-existent, suspended, or unverified email gets the same confirmation page and no email, so the email existence is not leaked.
 - BR-3: The reset token expires after the configured time to live (30 minutes).
 - BR-4: The reset link is a signed URL. The signature and the expiry are checked on use.
+- BR-5: A new request deletes the prior reset tokens for the user. Only the last link the user received is usable.

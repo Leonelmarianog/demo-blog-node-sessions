@@ -39,6 +39,10 @@ export class TypeOrmRequestPasswordResetRepository implements RequestPasswordRes
     });
   }
 
+  public async deleteByUserId(userId: string): Promise<void> {
+    await this.repositoryFor(PasswordResetTokenEntity).delete({ userId });
+  }
+
   /**
    * Returns the repository for the given entity.
    *
