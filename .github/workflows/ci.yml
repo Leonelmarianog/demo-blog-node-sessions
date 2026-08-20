@@ -75,3 +75,4 @@ jobs:
           SESSION_SECRET: ci-session-secret-please-use-32-or-more-chars
           APP_BASE_URL: http://localhost:3000
           VERIFICATION_TOKEN_TTL_SECONDS: 3600
+          PASSWORD_RESET_TOKEN_TTL_SECONDS: 1800
