@@ -1,7 +1,7 @@
 # UC-AUTH-003: Login
 
 ## Overview
-A user signs in with an email and a password. The system checks the credentials, refuses a suspended or unverified account, reactivates a self-deactivated account, and starts a session.
+A user logs in with an email and a password. The system checks the credentials, refuses a suspended or unverified account, reactivates a self-deactivated account, and starts a session.
 
 ## Actors
 - Primary: User
@@ -12,13 +12,13 @@ A user signs in with an email and a password. The system checks the credentials,
 - P2: The user has an account with a known email and password.
 
 ## Postconditions
-- PS1: A session is started for the authenticated user.
+- PS1: A session exists for the authenticated user.
 - PS2: A self-deactivated account is back in the `active` state.
 
 ## Main Flow
-1. The client submits the email and password.
+1. The client submits the email and the password.
 2. The controller passes them to the use case.
-3. The use case validates the email and password shape.
+3. The use case validates the shape of the email and the password.
 4. The use case loads the user by email.
 5. The use case checks that the user exists.
 6. The use case verifies the password.
@@ -98,8 +98,7 @@ sequenceDiagram
   ```
 
 ## Business Rules
-- BR-1: The email and password are validated for shape before any database read.
-- BR-2: A missing user, a wrong password, and a suspended account all produce the same `InvalidCredentialsException` so the response does not leak which check failed.
-- BR-3: An unverified account is refused with `EmailNotVerifiedException`.
-- BR-4: A self-deactivated account is reactivated on a successful login.
-- BR-5: The session is started by the controller from the use-case result, not by the use case.
+- BR-1: The use case validates the shape of the email and the password before it reads the database.
+- BR-2: A missing user, a wrong password, and a suspended account all produce the same `InvalidCredentialsException`. The response does not leak which check failed.
+- BR-3: The use case refuses an unverified account with `EmailNotVerifiedException`.
+- BR-4: The use case reactivates a self-deactivated account on a successful login.
