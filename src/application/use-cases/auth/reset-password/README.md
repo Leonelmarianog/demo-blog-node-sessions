@@ -91,3 +91,6 @@ sequenceDiagram
 - BR-3: The new password meets the same complexity rules as registration.
 - BR-4: Reset does not reactivate a self-deactivated account. The user logs in with the new password, and login reactivates.
 - BR-5: Reset does not end the user's other sessions in this iteration. That is deferred.
+
+## Future Improvements
+- On a superseded link, the GET step still renders the form because it checks only the signature. The POST step then rejects the token. A database lookup on GET would show the "invalid link" page at once, so the user does not fill the form first.
