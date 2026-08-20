@@ -26,6 +26,7 @@ import { AuthController } from '@presentation/http/controllers/auth/auth.control
 import { RegisterUserController } from '@presentation/http/controllers/auth/register-user.controller';
 import { VerifyEmailController } from '@presentation/http/controllers/auth/verify-email.controller';
 import { LoginUserController } from '@presentation/http/controllers/auth/login-user.controller';
+import { LogoutController } from '@presentation/http/controllers/auth/logout.controller';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { LoginUserController } from '@presentation/http/controllers/auth/login-u
     RegisterUserController,
     VerifyEmailController,
     LoginUserController,
+    LogoutController,
   ],
   providers: [
     {
