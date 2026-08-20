@@ -69,4 +69,58 @@ describe('Forgot password (e2e)', () => {
     expect(res.text).not.toMatch(/morgan/);
     expect(await resetTokenCountFor('morgan@example.com')).toBe(1);
   });
+
+  it('sends nothing for a non-existent email', async () => {
+    await request(app.getHttpServer() as Server)
+      .post('/forgot-password')
+      .send({ email: 'nobody@example.com' })
+      .expect(302)
+      .expect('Location', '/forgot-password/sent');
+
+    expect(await resetTokenCountFor('nobody@example.com')).toBe(0);
+  });
+
+  it('sends nothing for a suspended account', async () => {
+    await seedUser('morgan@example.com', 'suspended');
+
+    await request(app.getHttpServer() as Server)
+      .post('/forgot-password')
+      .send({ email: 'morgan@example.com' })
+      .expect(302)
+      .expect('Location', '/forgot-password/sent');
+
+    expect(await resetTokenCountFor('morgan@example.com')).toBe(0);
+  });
+
+  it('sends nothing for an unverified account', async () => {
+    await seedUser('morgan@example.com', 'unverified');
+
+    await request(app.getHttpServer() as Server)
+      .post('/forgot-password')
+      .send({ email: 'morgan@example.com' })
+      .expect(302)
+      .expect('Location', '/forgot-password/sent');
+
+    expect(await resetTokenCountFor('morgan@example.com')).toBe(0);
+  });
+
+  it('stores a reset token for a self-deactivated account', async () => {
+    await seedUser('morgan@example.com', 'self-deactivated');
+
+    await request(app.getHttpServer() as Server)
+      .post('/forgot-password')
+      .send({ email: 'morgan@example.com' })
+      .expect(302)
+      .expect('Location', '/forgot-password/sent');
+
+    expect(await resetTokenCountFor('morgan@example.com')).toBe(1);
+  });
+
+  it('re-renders the form with an email error for a bad email shape', async () => {
+    const res = await request(app.getHttpServer() as Server)
+      .post('/forgot-password')
+      .send({ email: 'not-an-email' })
+      .expect(200);
+    expect(res.text).toMatch(/Email/);
+  });
 });
