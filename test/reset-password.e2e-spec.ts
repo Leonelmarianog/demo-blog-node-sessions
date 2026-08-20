@@ -152,4 +152,51 @@ describe('Reset password (e2e)', () => {
       .expect(302)
       .expect('Location', '/dashboard');
   });
+
+  it('rejects a reused link after the reset is done', async () => {
+    await seedActiveUser('morgan@example.com');
+    const link = await requestResetAndGetLink('morgan@example.com');
+    const path = link.replace('http://localhost:3000', '');
+
+    await request(app.getHttpServer() as Server)
+      .post(path)
+      .send({ password: 'NewPassword1', confirmPassword: 'NewPassword1' })
+      .expect(302)
+      .expect('Location', '/login');
+
+    const res = await request(app.getHttpServer() as Server)
+      .post(path)
+      .send({
+        password: 'AnotherPassword1',
+        confirmPassword: 'AnotherPassword1',
+      })
+      .expect(200);
+    expect(res.text).toMatch(/Could not reset your password/);
+  });
+
+  it('re-renders the form with a password error for a weak password', async () => {
+    await seedActiveUser('morgan@example.com');
+    const link = await requestResetAndGetLink('morgan@example.com');
+    const path = link.replace('http://localhost:3000', '');
+
+    const res = await request(app.getHttpServer() as Server)
+      .post(path)
+      .send({ password: 'short', confirmPassword: 'short' })
+      .expect(200);
+    expect(res.text).toMatch(/Set a new password/);
+    expect(res.text).toMatch(/Password must be 8 to 128 characters/);
+  });
+
+  it('re-renders the form with a confirm error for a mismatch', async () => {
+    await seedActiveUser('morgan@example.com');
+    const link = await requestResetAndGetLink('morgan@example.com');
+    const path = link.replace('http://localhost:3000', '');
+
+    const res = await request(app.getHttpServer() as Server)
+      .post(path)
+      .send({ password: 'NewPassword1', confirmPassword: 'DifferentPassword1' })
+      .expect(200);
+    expect(res.text).toMatch(/Set a new password/);
+    expect(res.text).toMatch(/Passwords do not match/);
+  });
 });
