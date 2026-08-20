@@ -57,4 +57,9 @@ describe('Logout (e2e)', () => {
     expect(home.text).not.toMatch(/Signed in as/);
     expect(home.text).toMatch(/href="\/login"/);
   });
+
+  it('redirects to the login page even when no one is signed in', async () => {
+    const agent = request.agent(app.getHttpServer() as Server);
+    await agent.post('/logout').expect(302).expect('Location', '/login');
+  });
 });
