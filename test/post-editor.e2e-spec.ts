@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import request from 'supertest';
-import type { Server } from 'node:http';
 import { AppModule } from './../src/app.module';
 import { setupApp } from './utils/e2e-test.setup';
+import { resetDatabase } from './utils/db';
+import { createAuthenticatedAgent } from './utils/authenticated-agent';
 
 describe('Post editor pages (e2e)', () => {
   let app: INestApplication;
@@ -20,10 +20,12 @@ describe('Post editor pages (e2e)', () => {
 
   afterEach(async () => {
     await app.close();
+    await resetDatabase();
   });
 
-  it('GET /posts/new renders the create form', () => {
-    return request(app.getHttpServer() as Server)
+  it('GET /posts/new renders the create form', async () => {
+    const agent = await createAuthenticatedAgent(app);
+    await agent
       .get('/posts/new')
       .expect(200)
       .expect('Content-Type', /text\/html/)
@@ -32,8 +34,9 @@ describe('Post editor pages (e2e)', () => {
       .expect(/Publish/);
   });
 
-  it('GET /posts/:slug/edit renders the edit form pre-filled', () => {
-    return request(app.getHttpServer() as Server)
+  it('GET /posts/:slug/edit renders the edit form pre-filled', async () => {
+    const agent = await createAuthenticatedAgent(app);
+    await agent
       .get('/posts/building-a-server-rendered-blog/edit')
       .expect(200)
       .expect('Content-Type', /text\/html/)

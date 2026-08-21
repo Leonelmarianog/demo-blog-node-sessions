@@ -15,6 +15,9 @@ import { AdminModule } from '@modules/admin.module';
 import { NotFoundExceptionFilter } from '@presentation/http/exceptions/not-found.exception.filter';
 import { CurrentUserMiddleware } from '@presentation/http/middleware/current-user.middleware';
 import { RememberMeRestoreMiddleware } from '@presentation/http/middleware/remember-me-restore.middleware';
+import { RequireSessionMiddleware } from '@presentation/http/middleware/require-session.middleware';
+import { DashboardController } from '@presentation/http/controllers/dashboard/dashboard.controller';
+import { AdminController } from '@presentation/http/controllers/admin/admin.controller';
 
 @Module({
   imports: [
@@ -47,5 +50,13 @@ export class AppModule implements NestModule {
     consumer
       .apply(RememberMeRestoreMiddleware, CurrentUserMiddleware)
       .forRoutes('*');
+    consumer
+      .apply(RequireSessionMiddleware)
+      .forRoutes(
+        DashboardController,
+        AdminController,
+        'posts/new',
+        'posts/:slug/edit',
+      );
   }
 }
