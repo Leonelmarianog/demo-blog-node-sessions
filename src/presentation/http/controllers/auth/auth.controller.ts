@@ -18,4 +18,16 @@ export class AuthController {
   forgotPasswordSent(): AuthPageViewModel {
     return { appTitle: 'Demo Blog', year: new Date().getFullYear() };
   }
+
+  @Get('verify-email/resend')
+  @Render('pages/resend-verification-email')
+  resendVerificationEmail(): AuthPageViewModel {
+    return { appTitle: 'Demo Blog', year: new Date().getFullYear() };
+  }
+
+  @Get('verify-email/sent')
+  @Render('pages/verify-email-sent')
+  verifyEmailSent(): AuthPageViewModel {
+    return { appTitle: 'Demo Blog', year: new Date().getFullYear() };
+  }
 }
