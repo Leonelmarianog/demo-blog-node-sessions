@@ -36,6 +36,10 @@ import { TypeOrmResetPasswordRepository } from '@infrastructure/database/reposit
 import { ResetPasswordRepository } from '@application/use-cases/auth/reset-password/reset-password.repository.interface';
 import { ResetPasswordUseCase } from '@application/use-cases/auth/reset-password/reset-password.use-case';
 import { ResetPasswordController } from '@presentation/http/controllers/auth/reset-password.controller';
+import { TypeOrmResendVerificationEmailRepository } from '@infrastructure/database/repositories/typeorm-resend-verification-email.repository';
+import { ResendVerificationEmailRepository } from '@application/use-cases/auth/resend-verification-email/resend-verification-email.repository.interface';
+import { ResendVerificationEmailUseCase } from '@application/use-cases/auth/resend-verification-email/resend-verification-email.use-case';
+import { ResendVerificationEmailController } from '@presentation/http/controllers/auth/resend-verification-email.controller';
 
 @Module({
   imports: [
@@ -58,6 +62,7 @@ import { ResetPasswordController } from '@presentation/http/controllers/auth/res
     LogoutController,
     ForgotPasswordController,
     ResetPasswordController,
+    ResendVerificationEmailController,
   ],
   providers: [
     {
@@ -162,6 +167,38 @@ import { ResetPasswordController } from '@presentation/http/controllers/auth/res
         uow: UnitOfWork,
       ) => new ResetPasswordUseCase(tokens, hasher, uow),
       inject: [ResetPasswordRepository, Hasher, UnitOfWork],
+    },
+    {
+      provide: ResendVerificationEmailRepository,
+      useClass: TypeOrmResendVerificationEmailRepository,
+    },
+    {
+      provide: ResendVerificationEmailUseCase,
+      useFactory: (
+        users: ResendVerificationEmailRepository,
+        mailer: Mailer,
+        urlSigner: UrlSigner,
+        tokenGenerator: TokenGenerator,
+        uow: UnitOfWork,
+        config: ConfigService,
+      ) =>
+        new ResendVerificationEmailUseCase(
+          users,
+          mailer,
+          urlSigner,
+          tokenGenerator,
+          uow,
+          config.get<number>('VERIFICATION_TOKEN_TTL_SECONDS')!,
+          config.get<string>('APP_BASE_URL')!,
+        ),
+      inject: [
+        ResendVerificationEmailRepository,
+        Mailer,
+        UrlSigner,
+        TokenGenerator,
+        UnitOfWork,
+        ConfigService,
+      ],
     },
   ],
 })
