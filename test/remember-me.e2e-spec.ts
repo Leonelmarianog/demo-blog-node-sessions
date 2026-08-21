@@ -181,4 +181,28 @@ describe('Remember-me (e2e)', () => {
     expect(cookieWasCleared(res.headers['set-cookie'])).toBe(true);
     expect(await tokenCountFor('morgan@example.com')).toBe(0);
   });
+
+  it('revokes the token and clears the cookie on logout', async () => {
+    const agent = request.agent(app.getHttpServer() as Server);
+
+    await agent
+      .post('/login')
+      .send({
+        email: 'morgan@example.com',
+        password: 'Password1',
+        rememberMe: 'on',
+      })
+      .expect(302);
+
+    expect(await tokenCountFor('morgan@example.com')).toBe(1);
+
+    const logoutRes = await agent.post('/logout').expect(302);
+
+    expect(cookieWasCleared(logoutRes.headers['set-cookie'])).toBe(true);
+    expect(await tokenCountFor('morgan@example.com')).toBe(0);
+
+    const dashboardRes = await agent.get('/dashboard');
+    expect(dashboardRes.status).toBe(200);
+    expect(dashboardRes.text).not.toMatch(/Signed in as morgan/);
+  });
 });
