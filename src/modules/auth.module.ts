@@ -43,6 +43,7 @@ import { ResendVerificationEmailUseCase } from '@application/use-cases/auth/rese
 import { ResendVerificationEmailController } from '@presentation/http/controllers/auth/resend-verification-email.controller';
 import { RememberMeTokenStore } from '@application/contracts/remember-me-token-store.interface';
 import { TypeOrmRememberMeTokenStore } from '@infrastructure/database/repositories/typeorm-remember-me-token-store.repository';
+import { RememberMeCookieService } from '@presentation/http/cookies/remember-me-cookie.service';
 
 @Module({
   imports: [
@@ -124,8 +125,26 @@ import { TypeOrmRememberMeTokenStore } from '@infrastructure/database/repositori
         users: LoginUserRepository,
         hasher: Hasher,
         uow: UnitOfWork,
-      ) => new LoginUseCase(users, hasher, uow),
-      inject: [LoginUserRepository, Hasher, UnitOfWork],
+        rememberMeTokenStore: RememberMeTokenStore,
+        tokenGenerator: TokenGenerator,
+        config: ConfigService,
+      ) =>
+        new LoginUseCase(
+          users,
+          hasher,
+          uow,
+          rememberMeTokenStore,
+          tokenGenerator,
+          config.get<number>('REMEMBER_ME_TOKEN_TTL_SECONDS')!,
+        ),
+      inject: [
+        LoginUserRepository,
+        Hasher,
+        UnitOfWork,
+        RememberMeTokenStore,
+        TokenGenerator,
+        ConfigService,
+      ],
     },
     {
       provide: RequestPasswordResetRepository,
@@ -180,6 +199,7 @@ import { TypeOrmRememberMeTokenStore } from '@infrastructure/database/repositori
       provide: RememberMeTokenStore,
       useClass: TypeOrmRememberMeTokenStore,
     },
+    RememberMeCookieService,
     {
       provide: ResendVerificationEmailUseCase,
       useFactory: (

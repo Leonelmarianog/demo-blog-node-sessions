@@ -1,5 +1,7 @@
 import type { Hasher } from '@application/contracts/hasher.interface';
 import type { UnitOfWork } from '@application/contracts/unit-of-work.interface';
+import type { RememberMeTokenStore } from '@application/contracts/remember-me-token-store.interface';
+import type { TokenGenerator } from '@application/contracts/token-generator.interface';
 import type { LoginUserRepository } from './login.repository.interface';
 import type { User } from '@domain/entities/user.entity';
 import { Email } from '@domain/value-objects/email.vo';
@@ -17,6 +19,9 @@ export class LoginUseCase {
     private readonly users: LoginUserRepository,
     private readonly hasher: Hasher,
     private readonly unitOfWork: UnitOfWork,
+    private readonly rememberMeTokenStore: RememberMeTokenStore,
+    private readonly tokenGenerator: TokenGenerator,
+    private readonly rememberMeTokenTtlSeconds: number,
   ) {}
 
   public async execute(dto: LoginDto): Promise<LoginResult> {
@@ -29,7 +34,12 @@ export class LoginUseCase {
     this.ensureUserCanLogIn(user);
     await this.reactivateUserIfSelfDeactivated(user);
 
-    return new LoginResult(user.id, user.username);
+    const rememberMeToken = await this.issueRememberMeTokenIfRequested(
+      dto,
+      user,
+    );
+
+    return new LoginResult(user.id, user.username, rememberMeToken);
   }
 
   private validateInput(dto: LoginDto): void {
@@ -91,5 +101,21 @@ export class LoginUseCase {
 
     user.reactivate();
     await this.unitOfWork.execute(() => this.users.updateAccountState(user));
+  }
+
+  private async issueRememberMeTokenIfRequested(
+    dto: LoginDto,
+    user: User,
+  ): Promise<string | null> {
+    if (!dto.rememberMe) {
+      return null;
+    }
+
+    const rawToken = this.tokenGenerator.generate();
+    const expiresAt = new Date(
+      Date.now() + this.rememberMeTokenTtlSeconds * 1000,
+    );
+    await this.rememberMeTokenStore.save(rawToken, user.id, expiresAt);
+    return rawToken;
   }
 }
