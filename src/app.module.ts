@@ -14,6 +14,7 @@ import { SettingsModule } from '@modules/settings.module';
 import { AdminModule } from '@modules/admin.module';
 import { NotFoundExceptionFilter } from '@presentation/http/exceptions/not-found.exception.filter';
 import { CurrentUserMiddleware } from '@presentation/http/middleware/current-user.middleware';
+import { RememberMeRestoreMiddleware } from '@presentation/http/middleware/remember-me-restore.middleware';
 
 @Module({
   imports: [
@@ -43,6 +44,8 @@ import { CurrentUserMiddleware } from '@presentation/http/middleware/current-use
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {
-    consumer.apply(CurrentUserMiddleware).forRoutes('*');
+    consumer
+      .apply(RememberMeRestoreMiddleware, CurrentUserMiddleware)
+      .forRoutes('*');
   }
 }

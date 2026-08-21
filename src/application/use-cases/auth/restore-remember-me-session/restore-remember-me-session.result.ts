@@ -1,7 +1,7 @@
-export class LoginResult {
+export class RestoreRememberMeSessionResult {
   constructor(
     public readonly userId: string,
     public readonly username: string,
-    public readonly rememberMeToken: string | null,
+    public readonly newRawToken: string,
   ) {}
 }

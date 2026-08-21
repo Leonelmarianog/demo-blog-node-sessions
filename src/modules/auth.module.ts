@@ -28,6 +28,7 @@ import { VerifyEmailController } from '@presentation/http/controllers/auth/verif
 import { LoginUserController } from '@presentation/http/controllers/auth/login-user.controller';
 import { LogoutController } from '@presentation/http/controllers/auth/logout.controller';
 import { PasswordResetTokenEntity } from '@infrastructure/database/entities/password-reset-token.entity';
+import { RememberMeTokenEntity } from '@infrastructure/database/entities/remember-me-token.entity';
 import { TypeOrmRequestPasswordResetRepository } from '@infrastructure/database/repositories/typeorm-request-password-reset.repository';
 import { RequestPasswordResetRepository } from '@application/use-cases/auth/request-password-reset/request-password-reset.repository.interface';
 import { RequestPasswordResetUseCase } from '@application/use-cases/auth/request-password-reset/request-password-reset.use-case';
@@ -39,7 +40,11 @@ import { ResetPasswordController } from '@presentation/http/controllers/auth/res
 import { TypeOrmResendVerificationEmailRepository } from '@infrastructure/database/repositories/typeorm-resend-verification-email.repository';
 import { ResendVerificationEmailRepository } from '@application/use-cases/auth/resend-verification-email/resend-verification-email.repository.interface';
 import { ResendVerificationEmailUseCase } from '@application/use-cases/auth/resend-verification-email/resend-verification-email.use-case';
+import { RestoreRememberMeSessionUseCase } from '@application/use-cases/auth/restore-remember-me-session/restore-remember-me-session.use-case';
 import { ResendVerificationEmailController } from '@presentation/http/controllers/auth/resend-verification-email.controller';
+import { RememberMeTokenStore } from '@application/contracts/remember-me-token-store.interface';
+import { TypeOrmRememberMeTokenStore } from '@infrastructure/database/repositories/typeorm-remember-me-token-store.repository';
+import { RememberMeCookieService } from '@presentation/http/cookies/remember-me-cookie.service';
 
 @Module({
   imports: [
@@ -47,6 +52,7 @@ import { ResendVerificationEmailController } from '@presentation/http/controller
       UserEntity,
       VerificationTokenEntity,
       PasswordResetTokenEntity,
+      RememberMeTokenEntity,
     ]),
     DatabaseModule,
     HasherModule,
@@ -120,8 +126,26 @@ import { ResendVerificationEmailController } from '@presentation/http/controller
         users: LoginUserRepository,
         hasher: Hasher,
         uow: UnitOfWork,
-      ) => new LoginUseCase(users, hasher, uow),
-      inject: [LoginUserRepository, Hasher, UnitOfWork],
+        rememberMeTokenStore: RememberMeTokenStore,
+        tokenGenerator: TokenGenerator,
+        config: ConfigService,
+      ) =>
+        new LoginUseCase(
+          users,
+          hasher,
+          uow,
+          rememberMeTokenStore,
+          tokenGenerator,
+          config.get<number>('REMEMBER_ME_TOKEN_TTL_SECONDS')!,
+        ),
+      inject: [
+        LoginUserRepository,
+        Hasher,
+        UnitOfWork,
+        RememberMeTokenStore,
+        TokenGenerator,
+        ConfigService,
+      ],
     },
     {
       provide: RequestPasswordResetRepository,
@@ -173,6 +197,27 @@ import { ResendVerificationEmailController } from '@presentation/http/controller
       useClass: TypeOrmResendVerificationEmailRepository,
     },
     {
+      provide: RememberMeTokenStore,
+      useClass: TypeOrmRememberMeTokenStore,
+    },
+    RememberMeCookieService,
+    {
+      provide: RestoreRememberMeSessionUseCase,
+      useFactory: (
+        tokenStore: RememberMeTokenStore,
+        tokenGenerator: TokenGenerator,
+        uow: UnitOfWork,
+        config: ConfigService,
+      ) =>
+        new RestoreRememberMeSessionUseCase(
+          tokenStore,
+          tokenGenerator,
+          uow,
+          config.get<number>('REMEMBER_ME_TOKEN_TTL_SECONDS')!,
+        ),
+      inject: [RememberMeTokenStore, TokenGenerator, UnitOfWork, ConfigService],
+    },
+    {
       provide: ResendVerificationEmailUseCase,
       useFactory: (
         users: ResendVerificationEmailRepository,
@@ -201,5 +246,6 @@ import { ResendVerificationEmailController } from '@presentation/http/controller
       ],
     },
   ],
+  exports: [RestoreRememberMeSessionUseCase, RememberMeCookieService],
 })
 export class AuthModule {}
