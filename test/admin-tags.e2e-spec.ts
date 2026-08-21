@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
-import request from 'supertest';
-import type { Server } from 'node:http';
 import { AppModule } from './../src/app.module';
 import { setupApp } from './utils/e2e-test.setup';
+import { resetDatabase } from './utils/db';
+import { createAuthenticatedAgent } from './utils/authenticated-agent';
 
 describe('Admin tags management page (e2e)', () => {
   let app: INestApplication;
@@ -20,10 +20,12 @@ describe('Admin tags management page (e2e)', () => {
 
   afterEach(async () => {
     await app.close();
+    await resetDatabase();
   });
 
-  it('GET /admin/tags renders the tags management table', () => {
-    return request(app.getHttpServer() as Server)
+  it('GET /admin/tags renders the tags management table', async () => {
+    const agent = await createAuthenticatedAgent(app);
+    await agent
       .get('/admin/tags')
       .expect(200)
       .expect('Content-Type', /text\/html/)

@@ -151,24 +151,24 @@ describe('Remember-me (e2e)', () => {
     expect(rows.length).toBe(1);
   });
 
-  it('does not restore and shows the logged-out nav when there is no cookie', async () => {
+  it('redirects to /login when there is no cookie', async () => {
     const res = await request(app.getHttpServer() as Server).get('/dashboard');
 
-    expect(res.status).toBe(200);
-    expect(res.text).not.toMatch(/Signed in as morgan/);
+    expect(res.status).toBe(302);
+    expect(res.headers.location).toBe('/login');
   });
 
-  it('clears the cookie and does not restore for a tampered cookie', async () => {
+  it('clears the cookie and redirects to /login for a tampered cookie', async () => {
     const res = await request(app.getHttpServer() as Server)
       .get('/dashboard')
       .set('Cookie', 'remember_me=not-a-real-token');
 
-    expect(res.status).toBe(200);
-    expect(res.text).not.toMatch(/Signed in as morgan/);
+    expect(res.status).toBe(302);
+    expect(res.headers.location).toBe('/login');
     expect(cookieWasCleared(res.headers['set-cookie'])).toBe(true);
   });
 
-  it('does not restore for a suspended account and clears the cookie', async () => {
+  it('does not restore for a suspended account, clears the cookie, and redirects to /login', async () => {
     const oldCookie = await loginWithRememberMe();
     await setAccountState('morgan@example.com', 'suspended');
 
@@ -176,8 +176,8 @@ describe('Remember-me (e2e)', () => {
       .get('/dashboard')
       .set('Cookie', `remember_me=${oldCookie}`);
 
-    expect(res.status).toBe(200);
-    expect(res.text).not.toMatch(/Signed in as morgan/);
+    expect(res.status).toBe(302);
+    expect(res.headers.location).toBe('/login');
     expect(cookieWasCleared(res.headers['set-cookie'])).toBe(true);
     expect(await tokenCountFor('morgan@example.com')).toBe(0);
   });
@@ -202,7 +202,7 @@ describe('Remember-me (e2e)', () => {
     expect(await tokenCountFor('morgan@example.com')).toBe(0);
 
     const dashboardRes = await agent.get('/dashboard');
-    expect(dashboardRes.status).toBe(200);
-    expect(dashboardRes.text).not.toMatch(/Signed in as morgan/);
+    expect(dashboardRes.status).toBe(302);
+    expect(dashboardRes.headers.location).toBe('/login');
   });
 });
