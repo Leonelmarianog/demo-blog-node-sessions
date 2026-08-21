@@ -8,10 +8,12 @@ import { join } from 'node:path';
 import { AppModule } from './app.module';
 import { configureViewEngine } from '@presentation/http/views/view-engine.config';
 import { buildSessionMiddleware } from '@infrastructure/session/session.middleware';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  app.use(cookieParser());
   app.use(await buildSessionMiddleware());
 
   configureViewEngine(app, {

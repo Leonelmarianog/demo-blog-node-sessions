@@ -28,6 +28,7 @@ import { VerifyEmailController } from '@presentation/http/controllers/auth/verif
 import { LoginUserController } from '@presentation/http/controllers/auth/login-user.controller';
 import { LogoutController } from '@presentation/http/controllers/auth/logout.controller';
 import { PasswordResetTokenEntity } from '@infrastructure/database/entities/password-reset-token.entity';
+import { RememberMeTokenEntity } from '@infrastructure/database/entities/remember-me-token.entity';
 import { TypeOrmRequestPasswordResetRepository } from '@infrastructure/database/repositories/typeorm-request-password-reset.repository';
 import { RequestPasswordResetRepository } from '@application/use-cases/auth/request-password-reset/request-password-reset.repository.interface';
 import { RequestPasswordResetUseCase } from '@application/use-cases/auth/request-password-reset/request-password-reset.use-case';
@@ -47,6 +48,7 @@ import { ResendVerificationEmailController } from '@presentation/http/controller
       UserEntity,
       VerificationTokenEntity,
       PasswordResetTokenEntity,
+      RememberMeTokenEntity,
     ]),
     DatabaseModule,
     HasherModule,

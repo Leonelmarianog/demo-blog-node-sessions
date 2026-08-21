@@ -52,7 +52,7 @@ export async function resetDatabase(): Promise<void> {
   await client.connect();
   try {
     await client.query(
-      'TRUNCATE users, verification_tokens, password_reset_tokens RESTART IDENTITY CASCADE',
+      'TRUNCATE users, verification_tokens, password_reset_tokens, remember_me_tokens RESTART IDENTITY CASCADE',
     );
   } finally {
     await client.end();

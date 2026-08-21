@@ -18,4 +18,5 @@ export const envSchema = Joi.object({
   APP_BASE_URL: Joi.string().uri().required(),
   VERIFICATION_TOKEN_TTL_SECONDS: Joi.number().integer().min(60).required(),
   PASSWORD_RESET_TOKEN_TTL_SECONDS: Joi.number().integer().min(60).required(),
+  REMEMBER_ME_TOKEN_TTL_SECONDS: Joi.number().integer().min(60).required(),
 });
