@@ -41,6 +41,8 @@ import { TypeOrmResendVerificationEmailRepository } from '@infrastructure/databa
 import { ResendVerificationEmailRepository } from '@application/use-cases/auth/resend-verification-email/resend-verification-email.repository.interface';
 import { ResendVerificationEmailUseCase } from '@application/use-cases/auth/resend-verification-email/resend-verification-email.use-case';
 import { ResendVerificationEmailController } from '@presentation/http/controllers/auth/resend-verification-email.controller';
+import { RememberMeTokenStore } from '@application/contracts/remember-me-token-store.interface';
+import { TypeOrmRememberMeTokenStore } from '@infrastructure/database/repositories/typeorm-remember-me-token-store.repository';
 
 @Module({
   imports: [
@@ -173,6 +175,10 @@ import { ResendVerificationEmailController } from '@presentation/http/controller
     {
       provide: ResendVerificationEmailRepository,
       useClass: TypeOrmResendVerificationEmailRepository,
+    },
+    {
+      provide: RememberMeTokenStore,
+      useClass: TypeOrmRememberMeTokenStore,
     },
     {
       provide: ResendVerificationEmailUseCase,
